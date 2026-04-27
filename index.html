@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Kaza Namazı Takip</title>
+    <title>Kaza Namazı Takibim</title>
 
     <!-- PWA: Tam Ekran & Standalone Meta Etiketleri -->
-    <meta name="application-name" content="Kaza Namazı Takip">
+    <meta name="application-name" content="Kaza Namazı Takibim">
     <meta name="description" content="Kaza namazlarını kolayca takip et, istatistiklerini gör.">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Kaza Takip">
+    <meta name="apple-mobile-web-app-title" content="Kaza Takibim">
     <meta name="theme-color" content="#3d7a5e">
 
     <!-- PWA: Manifest & İkonlar -->
@@ -23,23 +23,25 @@
     <link rel="apple-touch-icon" sizes="180x180" href="ikon.png">
     <link rel="apple-touch-icon" sizes="167x167" href="ikon.png">
 
+    <!-- Google Fonts: Nunito -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
     <style>
         /* ===================================================
-           CSS DEĞİŞKENLERİ — Tüm tema & font buradan yönetilir
+           CSS DEĞİŞKENLERİ
         =================================================== */
         :root {
-            /* Renkler — canlı+pastel arası dengeli ton */
             --bg-color:        #deeae2;
             --container-bg:    #f6faf7;
             --header-bg:       #3d7a5e;
             --header-text:     #ffffff;
             --text-main:       #1a2e22;
             --text-gray:       #4d7060;
-            --sidebar-bg:      #f6faf7;
-            --sidebar-header:  #255240;
             --card-bg:         #eaf4ed;
             --card-border:     #a8d0b6;
             --accent:          #3d7a5e;
@@ -51,8 +53,10 @@
             --toast-bg:        #255240;
             --danger:          #c83838;
             --danger-soft:     #fce4e4;
+            --nav-bg:          #f6faf7;
+            --nav-border:      #a8d0b6;
+            --nav-active:      #3d7a5e;
 
-            /* Yazı Boyutları */
             --fs-xs:    0.70rem;
             --fs-sm:    0.82rem;
             --fs-base:  0.92rem;
@@ -64,248 +68,326 @@
 
         /* Sarı Tema */
         body.tema-sari {
-            --bg-color:        #f0e2c4;
-            --container-bg:    #fffcf0;
-            --header-bg:       #a87228;
-            --header-text:     #ffffff;
-            --text-main:       #3e2004;
-            --text-gray:       #6e4a18;
-            --sidebar-bg:      #fffcf0;
-            --sidebar-header:  #6e4010;
-            --card-bg:         #fdf0d0;
-            --card-border:     #d8b870;
-            --accent:          #a87228;
-            --accent-soft:     #f0d898;
-            --btn-minus:       #c09850;
-            --bar1:            #a87228;
-            --bar2:            #589630;
-            --bar3:            #b04820;
-            --toast-bg:        #6e4010;
-            --danger:          #b82828;
-            --danger-soft:     #fce0d0;
+            --bg-color: #f0e2c4; --container-bg: #fffcf0; --header-bg: #a87228; --header-text: #ffffff;
+            --text-main: #3e2004; --text-gray: #6e4a18; --card-bg: #fdf0d0; --card-border: #d8b870;
+            --accent: #a87228; --accent-soft: #f0d898; --btn-minus: #c09850;
+            --bar1: #a87228; --bar2: #589630; --bar3: #b04820; --toast-bg: #6e4010;
+            --danger: #b82828; --danger-soft: #fce0d0;
+            --nav-bg: #fffcf0; --nav-border: #d8b870; --nav-active: #a87228;
         }
         /* Mavi Tema */
         body.tema-mavi {
-            --bg-color:        #ccd8ee;
-            --container-bg:    #f2f6fc;
-            --header-bg:       #2e62aa;
-            --header-text:     #ffffff;
-            --text-main:       #0e2050;
-            --text-gray:       #2e4a88;
-            --sidebar-bg:      #f2f6fc;
-            --sidebar-header:  #18367a;
-            --card-bg:         #dce8f8;
-            --card-border:     #90b8e0;
-            --accent:          #2e62aa;
-            --accent-soft:     #b0ccf0;
-            --btn-minus:       #609ac8;
-            --bar1:            #2e62aa;
-            --bar2:            #2a9878;
-            --bar3:            #a87828;
-            --toast-bg:        #18367a;
-            --danger:          #b82828;
-            --danger-soft:     #fce0e0;
+            --bg-color: #ccd8ee; --container-bg: #f2f6fc; --header-bg: #2e62aa; --header-text: #ffffff;
+            --text-main: #0e2050; --text-gray: #2e4a88; --card-bg: #dce8f8; --card-border: #90b8e0;
+            --accent: #2e62aa; --accent-soft: #b0ccf0; --btn-minus: #609ac8;
+            --bar1: #2e62aa; --bar2: #2a9878; --bar3: #a87828; --toast-bg: #18367a;
+            --danger: #b82828; --danger-soft: #fce0e0;
+            --nav-bg: #f2f6fc; --nav-border: #90b8e0; --nav-active: #2e62aa;
         }
         /* Koyu Tema */
         body.tema-gri {
-            --bg-color:        #141820;
-            --container-bg:    #0e1218;
-            --header-bg:       #202a3a;
-            --header-text:     #c8d8e8;
-            --text-main:       #b0c4d8;
-            --text-gray:       #5878a0;
-            --sidebar-bg:      #0e1218;
-            --sidebar-header:  #080c12;
-            --card-bg:         #181e2c;
-            --card-border:     #28384e;
-            --accent:          #3a7ab0;
-            --accent-soft:     #182840;
-            --btn-minus:       #283848;
-            --bar1:            #3a7ab0;
-            --bar2:            #2a9878;
-            --bar3:            #a88828;
-            --toast-bg:        #3a7ab0;
-            --danger:          #aa3030;
-            --danger-soft:     #281010;
+            --bg-color: #141820; --container-bg: #0e1218; --header-bg: #202a3a; --header-text: #c8d8e8;
+            --text-main: #b0c4d8; --text-gray: #5878a0; --card-bg: #181e2c; --card-border: #28384e;
+            --accent: #3a7ab0; --accent-soft: #182840; --btn-minus: #283848;
+            --bar1: #3a7ab0; --bar2: #2a9878; --bar3: #a88828; --toast-bg: #3a7ab0;
+            --danger: #aa3030; --danger-soft: #281010;
+            --nav-bg: #0e1218; --nav-border: #28384e; --nav-active: #3a7ab0;
         }
 
-        /* ===================================================
-           YAZICI BOYUTU SINIFLARI
-        =================================================== */
+        /* Yazı Boyutu Sınıfları */
         body.font-kucuk { --fs-xs:.62rem; --fs-sm:.74rem; --fs-base:.84rem; --fs-md:.92rem; --fs-lg:1.05rem; --fs-xl:1.40rem; --fs-2xl:2.60rem; }
-        /* font-orta = :root varsayılanı */
         body.font-buyuk { --fs-xs:.78rem; --fs-sm:.92rem; --fs-base:1.04rem; --fs-md:1.14rem; --fs-lg:1.30rem; --fs-xl:1.82rem; --fs-2xl:3.40rem; }
 
         /* ===================================================
            GENEL
         =================================================== */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--bg-color); font-family: 'Segoe UI', Tahoma, sans-serif; font-size: var(--fs-base); transition: background 0.3s, color 0.3s; overflow-x: hidden; }
-        .app-container { max-width: 500px; margin: 0 auto; min-height: 100vh; background: var(--container-bg); position: relative; box-shadow: 0 0 40px rgba(0,0,0,0.14); }
+        body {
+            background: var(--bg-color);
+            font-family: 'Nunito', 'Segoe UI', Tahoma, sans-serif;
+            font-size: var(--fs-base);
+            transition: background 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+        .app-container {
+            max-width: 500px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: var(--container-bg);
+            position: relative;
+            box-shadow: 0 0 40px rgba(0,0,0,0.14);
+            padding-bottom: 80px;
+        }
 
         /* HEADER */
-        header { background: var(--header-bg); color: var(--header-text); padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; }
-        header h1 { font-size: var(--fs-lg); font-weight: 700; }
-        .icon-btn { background: rgba(255,255,255,0.18); border: none; color: var(--header-text); width: 38px; height: 38px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
-        .icon-btn:hover { background: rgba(255,255,255,0.30); }
+        header {
+            background: var(--header-bg);
+            color: var(--header-text);
+            padding: 16px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        header h1 {
+            font-size: var(--fs-lg);
+            font-weight: 900;
+            letter-spacing: -0.3px;
+        }
 
-        /* SIDEBAR */
-        .sidebar { position: fixed; top: 0; left: -290px; width: 280px; height: 100%; background: var(--sidebar-bg); z-index: 1000; transition: left 0.3s ease; box-shadow: 6px 0 24px rgba(0,0,0,0.16); display: flex; flex-direction: column; }
-        .sidebar.open { left: 0; }
-        .sidebar-header { padding: 24px 20px; background: var(--sidebar-header); color: #fff; display: flex; justify-content: space-between; align-items: center; }
-        .sidebar-header h3 { font-size: var(--fs-md); font-weight: 600; }
-        .nav-item { width: calc(100% - 20px); padding: 13px 18px; border: none; background: none; text-align: left; color: var(--text-main); display: flex; align-items: center; gap: 13px; cursor: pointer; border-radius: 10px; margin: 2px 10px; transition: background 0.2s, color 0.2s; font-size: var(--fs-base); }
-        .nav-item.active { background: var(--accent-soft); color: var(--accent); font-weight: 700; }
-        .nav-item:hover:not(.active) { background: var(--card-bg); }
+        /* ===== BOTTOM NAVIGATION ===== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 500px;
+            background: var(--nav-bg);
+            border-top: 1.5px solid var(--nav-border);
+            display: flex;
+            z-index: 100;
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.10);
+        }
+        .bottom-nav-btn {
+            flex: 1;
+            border: none;
+            background: none;
+            color: var(--text-gray);
+            padding: 10px 4px 8px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            transition: color 0.2s, transform 0.15s;
+            font-family: 'Nunito', sans-serif;
+            position: relative;
+        }
+        .bottom-nav-btn i { font-size: 1.20rem; transition: transform 0.2s; }
+        .bottom-nav-btn span { font-size: 0.63rem; font-weight: 700; }
+        .bottom-nav-btn.active { color: var(--nav-active); }
+        .bottom-nav-btn.active i { transform: translateY(-1px); }
+        .bottom-nav-btn.active::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 36px;
+            height: 3px;
+            background: var(--nav-active);
+            border-radius: 0 0 4px 4px;
+        }
 
         /* TABS */
-        .top-tabs { display: flex; background: var(--sidebar-header); padding: 5px; gap: 4px; border-bottom: 2px solid var(--header-bg); }
-        .tab-btn { flex: 1; padding: 11px; border: none; background: none; color: rgba(255,255,255,0.45); font-size: 1.05rem; cursor: pointer; border-radius: 9px; transition: background 0.2s, color 0.2s; }
-        .tab-btn.active { background: var(--header-bg); color: #fff; }
         .tab-content { display: none; padding: 18px; }
-        .tab-content.active { display: block; animation: fadeIn 0.28s; }
-        @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+        .tab-content.active { display: block; animation: fadeIn 0.25s; }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(7px); } to { opacity:1; transform:translateY(0); } }
+
+        /* ===== VAKİT KARTI ===== */
+        .vakit-card {
+            background: linear-gradient(135deg, var(--header-bg), color-mix(in srgb, var(--header-bg) 80%, black));
+            border-radius: 20px;
+            padding: 14px 16px 16px;
+            margin-bottom: 16px;
+            color: #fff;
+        }
+        .vakit-card-title {
+            font-size: var(--fs-xs);
+            font-weight: 800;
+            opacity: 0.85;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .vakit-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+        }
+        .vakit-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255,255,255,0.14);
+            border-radius: 12px;
+            padding: 9px 3px;
+            transition: background 0.2s;
+        }
+        .vakit-item.current-vakit {
+            background: rgba(255,255,255,0.30);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        .vakit-name { font-size: 0.60rem; font-weight: 800; opacity: 0.85; text-align: center; }
+        .vakit-time { font-size: var(--fs-sm); font-weight: 900; text-align: center; }
 
         /* STREAK */
-        .streak-badge { background: linear-gradient(135deg, #e8942a, #c85018); color: #fff; padding: 7px 16px; border-radius: 50px; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; margin-bottom: 14px; box-shadow: 0 3px 12px rgba(200,80,24,0.30); font-size: var(--fs-sm); }
+        .streak-badge { background: linear-gradient(135deg,#e8942a,#c85018); color:#fff; padding:7px 16px; border-radius:50px; display:inline-flex; align-items:center; gap:8px; font-weight:700; margin-bottom:14px; box-shadow:0 3px 12px rgba(200,80,24,.30); font-size:var(--fs-sm); }
 
         /* STAT CARDS */
-        .stat-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
-        .stat-card { background: var(--card-bg); border: 1px solid var(--card-border); padding: 15px; border-radius: 18px; text-align: center; color: var(--text-main); }
-        .stat-card h3 { font-size: var(--fs-xs); color: var(--text-gray); margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; }
-        .stat-card p { font-size: var(--fs-xl); font-weight: 800; color: var(--accent); }
+        .stat-summary { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:18px; }
+        .stat-card { background:var(--card-bg); border:1px solid var(--card-border); padding:15px; border-radius:18px; text-align:center; color:var(--text-main); }
+        .stat-card h3 { font-size:var(--fs-xs); color:var(--text-gray); margin-bottom:6px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; }
+        .stat-card p { font-size:var(--fs-xl); font-weight:900; color:var(--accent); }
 
         /* PRAYER CARDS */
-        .prayer-card { display: flex; justify-content: space-between; align-items: center; padding: 13px 15px; background: var(--card-bg); border-radius: 14px; border: 1px solid var(--card-border); margin-bottom: 9px; color: var(--text-main); }
-        .prayer-card span b { font-size: var(--fs-base); }
+        .prayer-card { display:flex; justify-content:space-between; align-items:center; padding:13px 15px; background:var(--card-bg); border-radius:14px; border:1px solid var(--card-border); margin-bottom:9px; color:var(--text-main); }
+        .prayer-name-block { display:flex; flex-direction:column; gap:2px; }
+        .prayer-name-block b { font-size:var(--fs-base); font-weight:800; }
+        .prayer-time-label { font-size:0.63rem; color:var(--accent); font-weight:700; }
 
         /* COUNTER BUTTONS */
-        .count-btn { border: none; color: #fff; width: 36px; height: 36px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; font-weight: 700; transition: transform 0.1s; }
-        .count-btn:active { transform: scale(0.88); }
-        .btn-minus { background: var(--btn-minus); }
-        .btn-plus  { background: var(--accent); }
-        .count-num { width: 30px; text-align: center; font-weight: 800; color: var(--text-main); font-size: var(--fs-md); }
+        .count-btn { border:none; color:#fff; width:36px; height:36px; border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1.15rem; font-weight:700; transition:transform .1s; }
+        .count-btn:active { transform:scale(.88); }
+        .btn-minus { background:var(--btn-minus); }
+        .btn-plus  { background:var(--accent); }
+        .count-num { width:30px; text-align:center; font-weight:800; color:var(--text-main); font-size:var(--fs-md); }
 
         /* PROGRESS */
-        .progress-section { background: var(--card-bg); border: 1px solid var(--card-border); padding: 16px; border-radius: 18px; margin-bottom: 16px; }
-        .progress-label { display: flex; justify-content: space-between; font-size: var(--fs-xs); color: var(--text-gray); margin-bottom: 5px; font-weight: 600; }
-        .progress-info { color: var(--accent); font-weight: 800; }
-        .progress-bar-bg { background: var(--card-border); height: 10px; border-radius: 8px; overflow: hidden; margin-bottom: 14px; }
-        .progress-bar-fill { height: 100%; border-radius: 8px; transition: width 0.8s ease-in-out; }
+        .progress-section { background:var(--card-bg); border:1px solid var(--card-border); padding:16px; border-radius:18px; margin-bottom:16px; }
+        .progress-label { display:flex; justify-content:space-between; font-size:var(--fs-xs); color:var(--text-gray); margin-bottom:5px; font-weight:700; }
+        .progress-info { color:var(--accent); font-weight:800; }
+        .progress-bar-bg { background:var(--card-border); height:10px; border-radius:8px; overflow:hidden; margin-bottom:14px; }
+        .progress-bar-fill { height:100%; border-radius:8px; transition:width .8s ease-in-out; }
 
         /* ACCORDION */
-        .accordion-btn { width: 100%; padding: 12px 15px; background: var(--accent-soft); color: var(--accent); border: 1px solid var(--card-border); border-radius: 12px; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: var(--fs-sm); transition: filter 0.18s; }
-        .accordion-btn:hover { filter: brightness(0.94); }
-        .accordion-btn i.chev { transition: transform 0.25s; font-size: 0.78rem; }
-        .accordion-btn.open i.chev { transform: rotate(180deg); }
-        .accordion-content { display: none; }
-        .accordion-content.show { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 14px; }
+        .accordion-btn { width:100%; padding:12px 15px; background:var(--accent-soft); color:var(--accent); border:1px solid var(--card-border); border-radius:12px; font-weight:800; cursor:pointer; display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:var(--fs-sm); transition:filter .18s; font-family:'Nunito',sans-serif; }
+        .accordion-btn:hover { filter:brightness(.94); }
+        .accordion-btn i.chev { transition:transform .25s; font-size:.78rem; }
+        .accordion-btn.open i.chev { transform:rotate(180deg); }
+        .accordion-content { display:none; }
+        .accordion-content.show { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-bottom:14px; }
 
         /* DATE NAV */
-        .date-navigation { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); border: 1px solid var(--card-border); padding: 10px 14px; border-radius: 50px; margin-bottom: 18px; color: var(--text-main); font-weight: 700; font-size: var(--fs-base); }
-        .nav-date-btn { border: none; background: var(--accent-soft); width: 32px; height: 32px; border-radius: 50%; color: var(--accent); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .date-navigation { display:flex; justify-content:space-between; align-items:center; background:var(--card-bg); border:1px solid var(--card-border); padding:10px 14px; border-radius:50px; margin-bottom:18px; color:var(--text-main); font-weight:800; font-size:var(--fs-base); }
+        .nav-date-btn { border:none; background:var(--accent-soft); width:32px; height:32px; border-radius:50%; color:var(--accent); cursor:pointer; display:flex; align-items:center; justify-content:center; }
 
         /* SETTINGS INPUT */
-        .setting-input { width: 90px; padding: 9px; border-radius: 10px; border: 1px solid var(--card-border); background: var(--container-bg); color: var(--text-main); text-align: center; font-weight: 700; font-size: var(--fs-base); }
+        .setting-input { width:90px; padding:9px; border-radius:10px; border:1px solid var(--card-border); background:var(--container-bg); color:var(--text-main); text-align:center; font-weight:700; font-size:var(--fs-base); font-family:'Nunito',sans-serif; }
 
         /* DIVIDER */
-        .section-divider { border: none; border-top: 1px solid var(--card-border); margin: 16px 0; }
+        .section-divider { border:none; border-top:1px solid var(--card-border); margin:16px 0; }
+
+        /* SETTINGS SECTION LABEL */
+        .settings-section-label {
+            font-size: var(--fs-xs);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-gray);
+            margin: 14px 0 8px;
+            display: block;
+        }
 
         /* FONT SIZE SELECTOR */
-        .font-size-btns { display: flex; gap: 8px; width: 100%; }
-        .fs-btn { flex: 1; padding: 9px 6px; border: 1.5px solid var(--card-border); border-radius: 10px; background: var(--card-bg); color: var(--text-main); font-weight: 600; cursor: pointer; transition: all 0.18s; font-size: var(--fs-sm); }
-        .fs-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+        .font-size-btns { display:flex; gap:8px; width:100%; }
+        .fs-btn { flex:1; padding:9px 6px; border:1.5px solid var(--card-border); border-radius:10px; background:var(--card-bg); color:var(--text-main); font-weight:700; cursor:pointer; transition:all .18s; font-size:var(--fs-sm); font-family:'Nunito',sans-serif; }
+        .fs-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
 
-        /* OVERLAY */
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.44); z-index: 999; display: none; }
-        .overlay.active { display: block; }
+        /* THEME SELECTOR */
+        .theme-selector { display:flex; gap:8px; }
+        .theme-btn {
+            flex: 1;
+            padding: 10px 4px 8px;
+            border: 2.5px solid transparent;
+            border-radius: 14px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.63rem;
+            font-weight: 800;
+            transition: all 0.2s;
+            color: #fff;
+            font-family: 'Nunito', sans-serif;
+        }
+        .theme-btn.t0 { background: #3d7a5e; }
+        .theme-btn.t1 { background: #a87228; }
+        .theme-btn.t2 { background: #2e62aa; }
+        .theme-btn.t3 { background: #202a3a; }
+        .theme-btn .theme-swatch {
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            border: 2.5px solid rgba(255,255,255,0.5);
+        }
+        .theme-btn.t0 .theme-swatch { background: #bcdeca; }
+        .theme-btn.t1 .theme-swatch { background: #f0d898; }
+        .theme-btn.t2 .theme-swatch { background: #b0ccf0; }
+        .theme-btn.t3 .theme-swatch { background: #3a7ab0; }
+        .theme-btn.active { outline: 3px solid var(--text-main); outline-offset: 2px; transform: scale(1.04); }
 
         /* PREDICTION CARD */
-        .prediction-card { background: var(--header-bg); color: #fff; padding: 26px 22px; border-radius: 20px; text-align: center; }
-        .prediction-card h3 { font-size: var(--fs-md); margin-bottom: 18px; opacity: 0.92; }
-        .prediction-card label { font-size: var(--fs-xs); opacity: 0.85; display: block; margin-bottom: 7px; }
-        .prediction-result { background: rgba(255,255,255,0.16); padding: 14px 18px; border-radius: 14px; margin-top: 14px; font-size: var(--fs-base); line-height: 1.9; }
+        .prediction-card { background:var(--header-bg); color:#fff; padding:26px 22px; border-radius:20px; text-align:center; }
+        .prediction-card h3 { font-size:var(--fs-md); margin-bottom:18px; opacity:.92; font-weight:800; }
+        .prediction-card label { font-size:var(--fs-xs); opacity:.85; display:block; margin-bottom:7px; font-weight:700; }
+        .prediction-result { background:rgba(255,255,255,.16); padding:14px 18px; border-radius:14px; margin-top:14px; font-size:var(--fs-base); line-height:1.9; }
 
         /* ACTION BUTTONS */
-        .action-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 13px; border: none; border-radius: 12px; color: #fff; font-weight: 600; cursor: pointer; font-size: var(--fs-sm); transition: opacity 0.2s, transform 0.1s; }
-        .action-btn:hover { opacity: 0.88; }
-        .action-btn:active { transform: scale(0.97); }
+        .action-btn { display:flex; align-items:center; justify-content:center; gap:8px; padding:13px; border:none; border-radius:12px; color:#fff; font-weight:700; cursor:pointer; font-size:var(--fs-sm); transition:opacity .2s,transform .1s; font-family:'Nunito',sans-serif; }
+        .action-btn:hover { opacity:.88; }
+        .action-btn:active { transform:scale(.97); }
 
         /* DANGER BUTTON */
-        .btn-danger-sm { display: flex; align-items: center; justify-content: center; gap: 7px; padding: 10px 14px; border: 1.5px solid var(--danger); border-radius: 12px; background: var(--danger-soft); color: var(--danger); font-weight: 600; cursor: pointer; font-size: var(--fs-xs); width: 100%; margin-top: 10px; transition: all 0.2s; }
-        .btn-danger-sm:hover { background: var(--danger); color: #fff; }
+        .btn-danger-sm { display:flex; align-items:center; justify-content:center; gap:7px; padding:10px 14px; border:1.5px solid var(--danger); border-radius:12px; background:var(--danger-soft); color:var(--danger); font-weight:700; cursor:pointer; font-size:var(--fs-xs); width:100%; margin-top:10px; transition:all .2s; font-family:'Nunito',sans-serif; }
+        .btn-danger-sm:hover { background:var(--danger); color:#fff; }
 
         /* MODAL */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.54); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
-        .modal-overlay.show { opacity: 1; pointer-events: all; }
-        .modal-box { background: var(--container-bg); border-radius: 24px; padding: 30px 22px; text-align: center; max-width: 340px; width: 92%; box-shadow: 0 24px 64px rgba(0,0,0,0.24); transform: scale(0.88); transition: transform 0.3s; }
-        .modal-overlay.show .modal-box { transform: scale(1); }
-        .modal-emoji { font-size: var(--fs-2xl); margin-bottom: 12px; }
-        .modal-title { font-size: var(--fs-lg); font-weight: 800; color: var(--text-main); margin-bottom: 8px; }
-        .modal-msg { font-size: var(--fs-sm); color: var(--text-gray); margin-bottom: 20px; line-height: 1.6; }
-        .modal-close-btn { background: var(--accent); color: #fff; border: none; border-radius: 12px; padding: 11px 30px; font-weight: 700; cursor: pointer; font-size: var(--fs-base); }
+        .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.54); z-index:2000; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .3s; }
+        .modal-overlay.show { opacity:1; pointer-events:all; }
+        .modal-box { background:var(--container-bg); border-radius:24px; padding:30px 22px; text-align:center; max-width:340px; width:92%; box-shadow:0 24px 64px rgba(0,0,0,.24); transform:scale(.88); transition:transform .3s; }
+        .modal-overlay.show .modal-box { transform:scale(1); }
+        .modal-emoji { font-size:var(--fs-2xl); margin-bottom:12px; }
+        .modal-title { font-size:var(--fs-lg); font-weight:900; color:var(--text-main); margin-bottom:8px; }
+        .modal-msg { font-size:var(--fs-sm); color:var(--text-gray); margin-bottom:20px; line-height:1.6; }
+        .modal-close-btn { background:var(--accent); color:#fff; border:none; border-radius:12px; padding:11px 30px; font-weight:800; cursor:pointer; font-size:var(--fs-base); font-family:'Nunito',sans-serif; }
 
         /* HİBRİT IMPORT MODAL */
-        .import-modal-box { max-width: 360px; text-align: left; }
-        .import-modal-box .modal-title { text-align: left; margin-bottom: 14px; }
-        .import-tabs { display: flex; gap: 7px; margin-bottom: 14px; }
-        .import-tab-btn { flex: 1; padding: 9px; border: 1.5px solid var(--card-border); border-radius: 10px; background: var(--card-bg); color: var(--text-main); font-weight: 600; cursor: pointer; font-size: var(--fs-sm); transition: all 0.18s; }
-        .import-tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-        .import-panel { display: none; }
-        .import-panel.active { display: block; }
-        .import-file-zone { border: 2px dashed var(--card-border); border-radius: 12px; padding: 22px; text-align: center; color: var(--text-gray); font-size: var(--fs-sm); cursor: pointer; transition: border-color 0.2s, color 0.2s; margin-bottom: 8px; }
-        .import-file-zone:hover { border-color: var(--accent); color: var(--accent); }
-        .import-textarea { width: 100%; height: 112px; padding: 10px; border-radius: 10px; border: 1.5px solid var(--card-border); background: var(--card-bg); color: var(--text-main); font-size: var(--fs-xs); resize: none; font-family: monospace; margin-bottom: 10px; }
-        .import-apply-btn { width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: var(--fs-base); margin-top: 4px; }
-        .import-cancel-btn { width: 100%; margin-top: 8px; padding: 10px; background: none; border: 1.5px solid var(--card-border); border-radius: 12px; color: var(--text-gray); font-weight: 600; cursor: pointer; font-size: var(--fs-sm); }
+        .import-modal-box { max-width:360px; text-align:left; }
+        .import-modal-box .modal-title { text-align:left; margin-bottom:14px; }
+        .import-tabs { display:flex; gap:7px; margin-bottom:14px; }
+        .import-tab-btn { flex:1; padding:9px; border:1.5px solid var(--card-border); border-radius:10px; background:var(--card-bg); color:var(--text-main); font-weight:700; cursor:pointer; font-size:var(--fs-sm); transition:all .18s; font-family:'Nunito',sans-serif; }
+        .import-tab-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+        .import-panel { display:none; }
+        .import-panel.active { display:block; }
+        .import-file-zone { border:2px dashed var(--card-border); border-radius:12px; padding:22px; text-align:center; color:var(--text-gray); font-size:var(--fs-sm); cursor:pointer; transition:border-color .2s,color .2s; margin-bottom:8px; }
+        .import-file-zone:hover { border-color:var(--accent); color:var(--accent); }
+        .import-textarea { width:100%; height:112px; padding:10px; border-radius:10px; border:1.5px solid var(--card-border); background:var(--card-bg); color:var(--text-main); font-size:var(--fs-xs); resize:none; font-family:monospace; margin-bottom:10px; }
+        .import-apply-btn { width:100%; padding:12px; background:var(--accent); color:#fff; border:none; border-radius:12px; font-weight:800; cursor:pointer; font-size:var(--fs-base); margin-top:4px; font-family:'Nunito',sans-serif; }
+        .import-cancel-btn { width:100%; margin-top:8px; padding:10px; background:none; border:1.5px solid var(--card-border); border-radius:12px; color:var(--text-gray); font-weight:700; cursor:pointer; font-size:var(--fs-sm); font-family:'Nunito',sans-serif; }
 
         /* TOAST */
-        #toast-container { position: fixed; top: 0; left: 50%; transform: translateX(-50%); z-index: 3000; width: 100%; max-width: 500px; pointer-events: none; }
-        .toast { background: var(--toast-bg); color: #fff; padding: 13px 18px; margin: 10px 12px; border-radius: 14px; display: flex; align-items: center; gap: 12px; box-shadow: 0 8px 28px rgba(0,0,0,0.22); font-size: var(--fs-sm); font-weight: 600; animation: toastDrop 0.4s ease, toastFade 0.4s ease 3.1s forwards; }
-        .toast i { font-size: 1.1rem; flex-shrink: 0; }
+        #toast-container { position:fixed; top:0; left:50%; transform:translateX(-50%); z-index:3000; width:100%; max-width:500px; pointer-events:none; }
+        .toast { background:var(--toast-bg); color:#fff; padding:13px 18px; margin:10px 12px; border-radius:14px; display:flex; align-items:center; gap:12px; box-shadow:0 8px 28px rgba(0,0,0,.22); font-size:var(--fs-sm); font-weight:700; animation:toastDrop .4s ease,toastFade .4s ease 3.1s forwards; }
+        .toast i { font-size:1.1rem; flex-shrink:0; }
         @keyframes toastDrop { from { opacity:0; transform:translateY(-28px); } to { opacity:1; transform:translateY(0); } }
         @keyframes toastFade { from { opacity:1; } to { opacity:0; transform:translateY(-10px); } }
 
         /* REMAIN / KİLİNEN */
-        .remain-item, .kilinen-item { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; font-size: var(--fs-sm); color: var(--text-main); }
-        .remain-item b { font-size: var(--fs-md); color: var(--accent); }
-        .remain-item.done b { color: #28a05a; }
-        .kilinen-item b { font-size: var(--fs-md); color: var(--bar2); }
+        .remain-item, .kilinen-item { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; font-size:var(--fs-sm); color:var(--text-main); font-weight:700; }
+        .remain-item b { font-size:var(--fs-md); color:var(--accent); }
+        .remain-item.done b { color:#28a05a; }
+        .kilinen-item b { font-size:var(--fs-md); color:var(--bar2); }
     </style>
 </head>
 <body>
 
-<!-- SIDEBAR -->
-<div id="sidebar" class="sidebar">
-    <div class="sidebar-header">
-        <h3><i class="fas fa-list-ul"></i> Menü</h3>
-        <button id="closeSidebar" style="background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;">&times;</button>
-    </div>
-    <nav style="padding:10px 0;flex:1;">
-        <button class="nav-item active" data-tab="tab1"><i class="fas fa-pen-alt fa-fw"></i> Kayıt Gir</button>
-        <button class="nav-item" data-tab="tab2"><i class="fas fa-chart-bar fa-fw"></i> Toplamlar</button>
-        <button class="nav-item" data-tab="tab5"><i class="fas fa-magic fa-fw"></i> Bitiş Tahmini</button>
-        <button class="nav-item" data-tab="tab6"><i class="fas fa-tools fa-fw"></i> Ayarlar</button>
-    </nav>
-</div>
-
 <div class="app-container">
     <header>
-        <button id="menuToggle" class="icon-btn"><i class="fas fa-bars"></i></button>
-        <h1>Kaza Namazı Takibi</h1>
-        <button id="themeToggle" class="icon-btn"><i class="fas fa-palette"></i></button>
+        <h1>Kaza Namazı Takibim</h1>
     </header>
-    <nav class="top-tabs">
-        <button class="tab-btn active" data-tab="tab1"><i class="fas fa-pen"></i></button>
-        <button class="tab-btn" data-tab="tab2"><i class="fas fa-chart-bar"></i></button>
-        <button class="tab-btn" data-tab="tab5"><i class="fas fa-magic"></i></button>
-        <button class="tab-btn" data-tab="tab6"><i class="fas fa-cog"></i></button>
-    </nav>
 
     <main>
-
-        <!-- TAB 1: KAYIT GİR -->
+        <!-- TAB 1: ANA SAYFA / KAYIT GİR -->
         <div id="tab1" class="tab-content active">
+            <!-- İstanbul Namaz Vakitleri Kartı -->
+           
+
             <div style="text-align:center;">
                 <div id="streakDisplay" class="streak-badge">
                     <i class="fas fa-fire"></i> <span id="streakCount">0</span> Günlük Zincir
@@ -334,25 +416,25 @@
                 <div class="progress-bar-bg"><div id="dayBar" class="progress-bar-fill" style="background:var(--bar3);width:0%"></div></div>
             </div>
             <button class="accordion-btn" id="toggleKilinen">
-                <span><i class="fas fa-check-circle" style="margin-right:7px;opacity:0.75;"></i>Toplam Kılınan Vakitler</span>
+                <span><i class="fas fa-check-circle" style="margin-right:7px;opacity:.75;"></i>Toplam Kılınan Vakitler</span>
                 <i class="fas fa-chevron-down chev"></i>
             </button>
             <div id="kilinenGrid" class="accordion-content"></div>
             <button class="accordion-btn" id="toggleDetails">
-                <span><i class="fas fa-clock" style="margin-right:7px;opacity:0.75;"></i>Kalan Borçlar</span>
+                <span><i class="fas fa-clock" style="margin-right:7px;opacity:.75;"></i>Kalan Borçlar</span>
                 <i class="fas fa-chevron-down chev"></i>
             </button>
             <div id="remainingGrid" class="accordion-content"></div>
         </div>
 
-        <!-- TAB 5: BİTİŞ TAHMİNİ — ortaya hizalı -->
+        <!-- TAB 5: BİTİŞ TAHMİNİ -->
         <div id="tab5" class="tab-content">
             <div style="display:flex;justify-content:center;align-items:flex-start;">
                 <div class="prediction-card" style="width:100%;max-width:400px;">
                     <h3><i class="fas fa-calendar-check" style="margin-right:8px;"></i>Tahmini Bitiş</h3>
                     <label>Günde Kaç Vakit Kaza?</label>
                     <input type="number" id="dailyGoalInput" value="5" class="setting-input"
-                           style="border:none;background:rgba(255,255,255,0.18);color:#fff;display:block;margin:0 auto 4px;">
+                           style="border:none;background:rgba(255,255,255,.18);color:#fff;display:block;margin:0 auto 4px;">
                     <div id="predictionResult" class="prediction-result"></div>
                 </div>
             </div>
@@ -360,7 +442,9 @@
 
         <!-- TAB 6: AYARLAR -->
         <div id="tab6" class="tab-content">
-            <!-- Borç girişleri -->
+
+            <!-- Borç Bilgileri -->
+            <span class="settings-section-label">Borç Bilgileri</span>
             <div class="prayer-card"><span><b>5 Vakit Borcu (Gün)</b></span><input type="number" id="mainDebtDays" class="setting-input" placeholder="0"></div>
             <div class="prayer-card"><span><b>Vitir Borcu (Gün)</b></span><input type="number" id="vitirDebtDays" class="setting-input" placeholder="0"></div>
             <div class="prayer-card"><span><b>Eski Kılınan (Gün)</b></span><input type="number" id="preCompletedDaysInput" class="setting-input" placeholder="0"></div>
@@ -368,9 +452,32 @@
 
             <hr class="section-divider">
 
+            <!-- Tema Seçimi -->
+            <span class="settings-section-label">Tema Rengi</span>
+            <div class="theme-selector">
+                <button class="theme-btn t0 active" data-theme-idx="0">
+                    <div class="theme-swatch"></div>
+                    Yeşil
+                </button>
+                <button class="theme-btn t1" data-theme-idx="1">
+                    <div class="theme-swatch"></div>
+                    Sarı
+                </button>
+                <button class="theme-btn t2" data-theme-idx="2">
+                    <div class="theme-swatch"></div>
+                    Mavi
+                </button>
+                <button class="theme-btn t3" data-theme-idx="3">
+                    <div class="theme-swatch"></div>
+                    Koyu
+                </button>
+            </div>
+
+            <hr class="section-divider">
+
             <!-- Yazı Boyutu -->
-            <div class="prayer-card" style="flex-direction:column;align-items:flex-start;gap:10px;">
-                <span><b>Yazı Boyutu</b></span>
+            <span class="settings-section-label">Yazı Boyutu</span>
+            <div class="prayer-card" style="flex-direction:column;align-items:flex-start;gap:10px;padding-bottom:14px;">
                 <div class="font-size-btns">
                     <button class="fs-btn" data-size="font-kucuk">Küçük</button>
                     <button class="fs-btn active" data-size="font-orta">Orta</button>
@@ -381,6 +488,7 @@
             <hr class="section-divider">
 
             <!-- Veri Yönetimi -->
+            <span class="settings-section-label">Veri Yönetimi</span>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
                 <button id="exportBtn" class="action-btn" style="background:var(--bar1);"><i class="fas fa-download"></i> Yedek Al</button>
                 <button id="importBtn" class="action-btn" style="background:var(--bar2);"><i class="fas fa-upload"></i> Yükle</button>
@@ -390,11 +498,28 @@
             </button>
             <input type="file" id="fileInput" style="display:none" accept=".json">
         </div>
-
     </main>
 </div>
 
-<div id="overlay" class="overlay"></div>
+<!-- ALT NAVİGASYON -->
+<nav class="bottom-nav">
+    <button class="bottom-nav-btn active" data-tab="tab1">
+        <i class="fas fa-home"></i>
+        <span>Ana Sayfa</span>
+    </button>
+    <button class="bottom-nav-btn" data-tab="tab2">
+        <i class="fas fa-chart-bar"></i>
+        <span>Toplamlar</span>
+    </button>
+    <button class="bottom-nav-btn" data-tab="tab5">
+        <i class="fas fa-magic"></i>
+        <span>Hesapla</span>
+    </button>
+    <button class="bottom-nav-btn" data-tab="tab6">
+        <i class="fas fa-cog"></i>
+        <span>Ayarlar</span>
+    </button>
+</nav>
 
 <!-- BAŞARI MODALI -->
 <div id="achievementModal" class="modal-overlay">
@@ -443,20 +568,29 @@
 (function migrateData() {
     try {
         const rawDb = localStorage.getItem('kaza_data');
-        if (rawDb) { const d = JSON.parse(rawDb); if (typeof d !== 'object' || Array.isArray(d)) localStorage.setItem('kaza_data', '{}'); }
+        if (rawDb) {
+            const d = JSON.parse(rawDb);
+            if (typeof d !== 'object' || Array.isArray(d)) localStorage.setItem('kaza_data', '{}');
+        }
         const rawS = localStorage.getItem('kaza_debt_settings');
         if (rawS) {
-            const s = JSON.parse(rawS), def = { main:0, vitir:0, preCompleted:0, preCompletedVitir:0 };
+            const s = JSON.parse(rawS);
+            const def = { main:0, vitir:0, preCompleted:0, preCompletedVitir:0 };
             let ch = false;
             Object.keys(def).forEach(k => { if (s[k]===undefined) { s[k]=def[k]; ch=true; } });
             if (ch) localStorage.setItem('kaza_debt_settings', JSON.stringify(s));
         }
         const rawC = localStorage.getItem('last_celebrations');
         if (rawC) {
-            const c = JSON.parse(rawC), def = { day:0, month:0, year:0 };
+            const c = JSON.parse(rawC);
+            const def = { day:0, month:0, year:0 };
             let ch = false;
             Object.keys(def).forEach(k => { if (c[k]===undefined) { c[k]=def[k]; ch=true; } });
             if (ch) localStorage.setItem('last_celebrations', JSON.stringify(c));
+        }
+        // Nafile ve vakit yedekleme alanlarını başlat (mevcut verilere zarar vermeden)
+        if (!localStorage.getItem('istanbul_vakitler')) {
+            localStorage.setItem('istanbul_vakitler', JSON.stringify({ date: '', times: {} }));
         }
     } catch(e) { console.warn('Migration uyarısı:', e.message); }
 })();
@@ -465,8 +599,17 @@
    CORE
 ============================================================ */
 const MAIN_5  = ['Sabah','Öğle','İkindi','Akşam','Yatsı'];
-const PRAYERS = [...MAIN_5,'Vitir','Nafile'];
-const THEMES  = ['','tema-sari','tema-mavi','tema-gri'];
+const PRAYERS = [...MAIN_5, 'Vitir', 'Nafile'];
+const THEMES  = ['', 'tema-sari', 'tema-mavi', 'tema-gri'];
+
+// Diyanet (method=13) API vakti eşleştirmesi
+const PRAYER_API_MAP = {
+    'Sabah':  'Fajr',
+    'Öğle':   'Dhuhr',
+    'İkindi': 'Asr',
+    'Akşam':  'Maghrib',
+    'Yatsı':  'Isha'
+};
 
 let db              = JSON.parse(localStorage.getItem('kaza_data'))          || {};
 let settings        = JSON.parse(localStorage.getItem('kaza_debt_settings')) || {main:0,vitir:0,preCompleted:0,preCompletedVitir:0};
@@ -475,14 +618,28 @@ let lastCheckedDone = JSON.parse(localStorage.getItem('last_celebrations'))   ||
 let fontSize        = localStorage.getItem('font_size') || 'font-orta';
 let currentDate     = new Date(); currentDate.setHours(0,0,0,0);
 let importFileData  = null;
+let prayerTimes     = {};  // { 'Sabah': '05:20', 'Öğle': '13:05', ... }
 
-function init() { applyTheme(); applyFontSize(); renderInputs(); setupSettings(); updateUI(); bindEvents(); }
+function init() {
+    applyTheme();
+    applyFontSize();
+    renderInputs();
+    setupSettings();
+    updateUI();
+    bindEvents();
+    fetchPrayerTimes();
+}
 
+/* ===== TEMA ===== */
 function applyTheme() {
     const keep = document.body.className.replace(/tema-\S+/g,'').trim();
     document.body.className = [keep, THEMES[themeIdx]].filter(Boolean).join(' ');
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.classList.toggle('active', parseInt(btn.dataset.themeIdx) === themeIdx);
+    });
 }
 
+/* ===== YAZI BOYUTU ===== */
 function applyFontSize(size) {
     if (size) { fontSize = size; localStorage.setItem('font_size', size); }
     ['font-kucuk','font-orta','font-buyuk'].forEach(c => document.body.classList.remove(c));
@@ -490,19 +647,101 @@ function applyFontSize(size) {
     document.querySelectorAll('.fs-btn').forEach(b => b.classList.toggle('active', b.dataset.size === fontSize));
 }
 
+/* ===== İSTANBUL NAMAZ VAKİTLERİ (Diyanet/Aladhan API) ===== */
+async function fetchPrayerTimes() {
+    const today = new Date().toISOString().split('T')[0];
+
+    // Önce cache kontrol
+    try {
+        const cached = JSON.parse(localStorage.getItem('istanbul_vakitler') || '{}');
+        if (cached.date === today && Object.keys(cached.times || {}).length === 5) {
+            prayerTimes = cached.times;
+            renderPrayerTimes();
+            return;
+        }
+    } catch(e) {}
+
+    // API'den çek
+    try {
+        const res = await fetch(
+            `https://api.aladhan.com/v1/timingsByCity?city=Istanbul&country=Turkey&method=13`
+        );
+        if (!res.ok) throw new Error('API yanıt vermedi');
+        const data = await res.json();
+        if (data.code === 200 && data.data && data.data.timings) {
+            const timings = data.data.timings;
+            const times = {};
+            Object.entries(PRAYER_API_MAP).forEach(([tr, en]) => {
+                times[tr] = timings[en] ? timings[en].substring(0, 5) : '--:--';
+            });
+            prayerTimes = times;
+            localStorage.setItem('istanbul_vakitler', JSON.stringify({ date: today, times }));
+            renderPrayerTimes();
+        }
+    } catch(e) {
+        // İnternet yoksa son kaydedilen veriyi göster
+        try {
+            const cached = JSON.parse(localStorage.getItem('istanbul_vakitler') || '{}');
+            if (cached.times && Object.keys(cached.times).length > 0) {
+                prayerTimes = cached.times;
+                renderPrayerTimes();
+            }
+        } catch(e2) {}
+        console.warn('Vakit alınamadı (offline?):', e.message);
+    }
+}
+
+function renderPrayerTimes() {
+    // Vakit kartını güncelle
+    MAIN_5.forEach(name => {
+        const el = document.getElementById('vt-' + name);
+        if (el && prayerTimes[name]) el.textContent = prayerTimes[name];
+    });
+    // Aktif vakti vurgula
+    highlightCurrentVakit();
+    // Namaz kartlarındaki vakitleri de güncelle
+    renderInputs();
+}
+
+function highlightCurrentVakit() {
+    const now = new Date();
+    const nowMin = now.getHours() * 60 + now.getMinutes();
+    const mins = MAIN_5.map(n => {
+        const t = prayerTimes[n];
+        if (!t || t === '--:--') return -1;
+        const [h, m] = t.split(':').map(Number);
+        return h * 60 + m;
+    });
+    let current = -1;
+    for (let i = mins.length - 1; i >= 0; i--) {
+        if (mins[i] >= 0 && nowMin >= mins[i]) { current = i; break; }
+    }
+    MAIN_5.forEach((name, i) => {
+        const el = document.getElementById('vi-' + name);
+        if (el) el.classList.toggle('current-vakit', i === current);
+    });
+}
+
 /* ===== INPUTS ===== */
 function renderInputs() {
     const key = currentDate.toISOString().split('T')[0];
     const d   = db[key] || {};
-    document.getElementById('prayerGridContainer').innerHTML = PRAYERS.map(p => `
+    document.getElementById('prayerGridContainer').innerHTML = PRAYERS.map(p => {
+        const timeLabel = PRAYER_API_MAP[p] && prayerTimes[p]
+            ? `<span class="prayer-time-label">${prayerTimes[p]}</span>`
+            : '';
+        return `
         <div class="prayer-card">
-            <span><b>${p}</b></span>
+            <span class="prayer-name-block">
+                <b>${p}</b>${timeLabel}
+            </span>
             <div style="display:flex;align-items:center;gap:10px;">
                 <button class="count-btn btn-minus" onclick="changeCount('${p}',-1)">−</button>
                 <span class="count-num">${d[p]||0}</span>
                 <button class="count-btn btn-plus"  onclick="changeCount('${p}',1)">+</button>
             </div>
-        </div>`).join('');
+        </div>`;
+    }).join('');
     document.getElementById('selectedDateDisplay').innerText =
         currentDate.toLocaleDateString('tr-TR',{day:'numeric',month:'long'});
 }
@@ -588,18 +827,31 @@ function updateUI() {
     renderPrediction(totalVakit,tD,tV);
 }
 
+/* Toplamlar: Kalan Borçlar — Nafile dahil */
 function renderDetails(tot,tD,tV,prD,prV) {
-    document.getElementById('remainingGrid').innerHTML = MAIN_5.concat(['Vitir']).map(p=>{
-        const t=p==='Vitir'?tV:tD, d=tot[p]+(p==='Vitir'?prV:prD), r=Math.max(0,t-d);
+    const list = MAIN_5.concat(['Vitir', 'Nafile']);
+    document.getElementById('remainingGrid').innerHTML = list.map(p => {
+        let r;
+        if (p === 'Nafile') {
+            r = 0; // Nafile için borç tanımı yok
+        } else {
+            const t = p==='Vitir' ? tV : tD;
+            const done = tot[p] + (p==='Vitir' ? prV : prD);
+            r = Math.max(0, t - done);
+        }
         return `<div class="remain-item ${r===0?'done':''}"><span>${p}</span><b>${r}</b></div>`;
     }).join('');
 }
+
+/* Toplamlar: Kılınan Vakitler — Nafile dahil */
 function renderKilinen(tot,prD,prV) {
-    document.getElementById('kilinenGrid').innerHTML = MAIN_5.concat(['Vitir']).map(p=>{
-        const ex=p==='Vitir'?prV:prD;
+    const list = MAIN_5.concat(['Vitir', 'Nafile']);
+    document.getElementById('kilinenGrid').innerHTML = list.map(p => {
+        const ex = p==='Vitir' ? prV : (p==='Nafile' ? 0 : prD);
         return `<div class="kilinen-item"><span>${p}</span><b>${(tot[p]||0)+ex}</b></div>`;
     }).join('');
 }
+
 function renderPrediction(tv,tD,tV) {
     const daily=parseInt(document.getElementById('dailyGoalInput').value)||1;
     const rem=Math.max(0,(tD*5+tV)-tv), est=Math.ceil(rem/daily);
@@ -630,38 +882,46 @@ function applyImportData(text) {
     } catch(e) { alert('Hata: ' + e.message); }
 }
 
+/* ===== TAB GEÇİŞİ ===== */
+function switchTab(t) {
+    document.querySelectorAll('.bottom-nav-btn').forEach(el =>
+        el.classList.toggle('active', el.dataset.tab === t)
+    );
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.getElementById(t).classList.add('active');
+}
+
 /* ===== EVENT BINDINGS ===== */
 function bindEvents() {
-    const openSB  = ()=>{document.getElementById('sidebar').classList.add('open');document.getElementById('overlay').classList.add('active');};
-    const closeSB = ()=>{document.getElementById('sidebar').classList.remove('open');document.getElementById('overlay').classList.remove('active');};
-    document.getElementById('menuToggle').onclick   = openSB;
-    document.getElementById('closeSidebar').onclick = closeSB;
-    document.getElementById('overlay').onclick      = closeSB;
+    // Alt navigasyon
+    document.querySelectorAll('.bottom-nav-btn').forEach(btn => {
+        btn.onclick = () => { const t = btn.dataset.tab; if (!t) return; switchTab(t); };
+    });
 
-    document.getElementById('themeToggle').onclick = ()=>{
-        themeIdx=(themeIdx+1)%THEMES.length;
-        localStorage.setItem('theme_index',themeIdx);
-        applyTheme();
-    };
-
-    document.querySelectorAll('.nav-item,.tab-btn').forEach(btn=>{
-        btn.onclick=()=>{
-            const t=btn.dataset.tab; if(!t) return;
-            document.querySelectorAll('.nav-item,.tab-btn').forEach(el=>el.classList.remove('active'));
-            document.querySelectorAll(`[data-tab="${t}"]`).forEach(el=>el.classList.add('active'));
-            document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
-            document.getElementById(t).classList.add('active');
-            closeSB();
+    // Tema butonları (Ayarlar sekmesi)
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.onclick = () => {
+            themeIdx = parseInt(btn.dataset.themeIdx);
+            localStorage.setItem('theme_index', themeIdx);
+            applyTheme();
         };
     });
 
     document.getElementById('prevDayBtn').onclick=()=>{currentDate.setDate(currentDate.getDate()-1);renderInputs();};
-    document.getElementById('nextDayBtn').onclick=()=>{const td=new Date();td.setHours(0,0,0,0);if(currentDate<td){currentDate.setDate(currentDate.getDate()+1);renderInputs();}};
+    document.getElementById('nextDayBtn').onclick=()=>{
+        const td=new Date();td.setHours(0,0,0,0);
+        if(currentDate<td){currentDate.setDate(currentDate.getDate()+1);renderInputs();}
+    };
 
-    document.getElementById('toggleKilinen').onclick=function(){this.classList.toggle('open');document.getElementById('kilinenGrid').classList.toggle('show');};
-    document.getElementById('toggleDetails').onclick=function(){this.classList.toggle('open');document.getElementById('remainingGrid').classList.toggle('show');};
+    document.getElementById('toggleKilinen').onclick=function(){
+        this.classList.toggle('open');
+        document.getElementById('kilinenGrid').classList.toggle('show');
+    };
+    document.getElementById('toggleDetails').onclick=function(){
+        this.classList.toggle('open');
+        document.getElementById('remainingGrid').classList.toggle('show');
+    };
 
-    // Bitiş tahmini anlık güncelleme
     document.getElementById('dailyGoalInput').addEventListener('input',()=>{
         let tot={}; PRAYERS.forEach(p=>tot[p]=0);
         Object.values(db).forEach(day=>PRAYERS.forEach(p=>tot[p]+=(day[p]||0)));
@@ -670,10 +930,8 @@ function bindEvents() {
         renderPrediction(tv,parseInt(settings.main)||0,parseInt(settings.vitir)||0);
     });
 
-    // Yazı boyutu
     document.querySelectorAll('.fs-btn').forEach(btn=>{btn.onclick=()=>applyFontSize(btn.dataset.size);});
 
-    // Export
     document.getElementById('exportBtn').onclick=()=>{
         const b=new Blob([JSON.stringify({db,settings,themeIdx})],{type:'application/json'});
         const a=document.createElement('a');
@@ -682,7 +940,6 @@ function bindEvents() {
         a.click();
     };
 
-    // Import Modal aç
     document.getElementById('importBtn').onclick=()=>{
         importFileData=null;
         document.getElementById('importFileName').innerText='';
@@ -694,9 +951,11 @@ function bindEvents() {
         document.getElementById('importModal').classList.add('show');
     };
     document.getElementById('importCancelBtn').onclick=()=>document.getElementById('importModal').classList.remove('show');
-    document.getElementById('importModal').onclick=e=>{if(e.target===document.getElementById('importModal'))document.getElementById('importModal').classList.remove('show');};
+    document.getElementById('importModal').onclick=e=>{
+        if(e.target===document.getElementById('importModal'))
+            document.getElementById('importModal').classList.remove('show');
+    };
 
-    // Import tab switching
     document.querySelectorAll('.import-tab-btn').forEach(btn=>{
         btn.onclick=()=>{
             document.querySelectorAll('.import-tab-btn').forEach(b=>b.classList.remove('active'));
@@ -707,17 +966,16 @@ function bindEvents() {
         };
     });
 
-    // Dosya zone
     document.getElementById('importFileZone').onclick=()=>document.getElementById('fileInput2').click();
     document.getElementById('fileInput2').onchange=e=>{
         const f=e.target.files[0]; if(!f) return;
         document.getElementById('importFileName').innerText='📎 '+f.name;
-        new FileReader().onload=re=>{importFileData=re.target.result;};
-        const fr=new FileReader(); fr.onload=re=>{importFileData=re.target.result;}; fr.readAsText(f);
+        const fr=new FileReader();
+        fr.onload=re=>{importFileData=re.target.result;};
+        fr.readAsText(f);
         e.target.value='';
     };
 
-    // Import Uygula
     document.getElementById('importApplyBtn').onclick=()=>{
         const tab=document.querySelector('.import-tab-btn.active')?.dataset?.importTab;
         if(tab==='file'){
@@ -730,17 +988,19 @@ function bindEvents() {
         }
     };
 
-    // Tüm Verileri Temizle
     document.getElementById('clearDataBtn').onclick=()=>{
         if(confirm('⚠️ DİKKAT!\n\nTüm namaz kayıtların, ayarların ve istatistiklerin kalıcı olarak silinecek.\n\nBu işlem GERİ ALINAMAZ!\n\nDevam etmek istiyor musun?')) {
-            ['kaza_data','kaza_debt_settings','last_celebrations','theme_index','font_size'].forEach(k=>localStorage.removeItem(k));
+            ['kaza_data','kaza_debt_settings','last_celebrations','theme_index','font_size','istanbul_vakitler']
+                .forEach(k=>localStorage.removeItem(k));
             location.reload();
         }
     };
 
-    // Başarı modal kapat
     document.getElementById('modalCloseBtn').onclick=()=>document.getElementById('achievementModal').classList.remove('show');
-    document.getElementById('achievementModal').onclick=e=>{if(e.target===document.getElementById('achievementModal'))document.getElementById('achievementModal').classList.remove('show');};
+    document.getElementById('achievementModal').onclick=e=>{
+        if(e.target===document.getElementById('achievementModal'))
+            document.getElementById('achievementModal').classList.remove('show');
+    };
 }
 
 init();
