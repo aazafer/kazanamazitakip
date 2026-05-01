@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Kaza Namazı Takibim</title>
 
     <!-- PWA: Tam Ekran & Standalone Meta Etiketleri -->
@@ -12,7 +12,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Kaza Takibim">
-    <meta name="theme-color" content="#3d7a5e">
+    <meta name="theme-color" content="#ffffff">
 
     <!-- PWA: Manifest & İkonlar -->
     <link rel="manifest" href="manifest.json">
@@ -26,402 +26,602 @@
     <!-- Google Fonts: Nunito -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
     <style>
         /* ===================================================
-           CSS DEĞİŞKENLERİ
+           CSS DEĞİŞKENLERİ & TEMALAR (SaaS / Glassmorphism)
         =================================================== */
         :root {
-            --bg-color:        #deeae2;
-            --container-bg:    #f6faf7;
-            --header-bg:       #3d7a5e;
-            --header-text:     #ffffff;
-            --text-main:       #1a2e22;
-            --text-gray:       #4d7060;
-            --card-bg:         #eaf4ed;
-            --card-border:     #a8d0b6;
-            --accent:          #3d7a5e;
-            --accent-soft:     #bcdeca;
-            --btn-minus:       #78aa8e;
-            --bar1:            #3d7a5e;
-            --bar2:            #3a72b2;
-            --bar3:            #b8782a;
-            --toast-bg:        #255240;
-            --danger:          #c83838;
-            --danger-soft:     #fce4e4;
-            --nav-bg:          #f6faf7;
-            --nav-border:      #a8d0b6;
-            --nav-active:      #3d7a5e;
+            /* Varsayılan - Modern Yeşil / Beyaz (Light) */
+            --bg-grad-1:       #fdfbfb;
+            --bg-grad-2:       #ebedee;
+            --container-bg:    rgba(255, 255, 255, 0.7);
+            --glass-border:    var(--accent-glow);
+            --header-text:     #0f172a;
+            --text-main:       #1e293b;
+            --text-gray:       #64748b;
+            --card-bg:         rgba(255, 255, 255, 0.85);
+            --card-shadow:     0 8px 32px 0 rgba(31, 38, 135, 0.05);
+            --accent:          #10b981; /* Zümrüt Yeşili */
+            --accent-soft:     #d1fae5;
+            --accent-glow:     rgba(16, 185, 129, 0.3);
+            --btn-minus:       #94a3b8;
+            --bar1:            #10b981;
+            --bar2:            #3b82f6;
+            --bar3:            #f59e0b;
+            --toast-bg:        #0f172a;
+            --danger:          #ef4444;
+            --danger-soft:     #fef2f2;
+            --nav-bg:          rgba(255, 255, 255, 0.85);
+            --nav-active:      #10b981;
+            --glass-blur:      blur(8px);
 
-            --fs-xs:    0.70rem;
-            --fs-sm:    0.82rem;
-            --fs-base:  0.92rem;
-            --fs-md:    1.00rem;
-            --fs-lg:    1.15rem;
-            --fs-xl:    1.60rem;
-            --fs-2xl:   3.00rem;
+            --fs-xs:    0.75rem;
+            --fs-sm:    0.85rem;
+            --fs-base:  0.95rem;
+            --fs-md:    1.05rem;
+            --fs-lg:    1.25rem;
+            --fs-xl:    1.75rem;
+            --fs-2xl:   2.50rem;
         }
 
-        /* Sarı Tema */
+        /* Sarı Tema (Warm / Sunset) */
         body.tema-sari {
-            --bg-color: #f0e2c4; --container-bg: #fffcf0; --header-bg: #a87228; --header-text: #ffffff;
-            --text-main: #3e2004; --text-gray: #6e4a18; --card-bg: #fdf0d0; --card-border: #d8b870;
-            --accent: #a87228; --accent-soft: #f0d898; --btn-minus: #c09850;
-            --bar1: #a87228; --bar2: #589630; --bar3: #b04820; --toast-bg: #6e4010;
-            --danger: #b82828; --danger-soft: #fce0d0;
-            --nav-bg: #fffcf0; --nav-border: #d8b870; --nav-active: #a87228;
+            --bg-grad-1:       #fffbeb;
+            --bg-grad-2:       #fef3c7;
+            --accent:          #f59e0b;
+            --accent-soft:     #fef3c7;
+            --accent-glow:     rgba(245, 158, 11, 0.3);
+            --glass-border:    var(--accent-glow);
+            --nav-active:      #f59e0b;
+            --bar1:            #f59e0b; --bar2: #10b981; --bar3: #ef4444;
         }
-        /* Mavi Tema */
+
+        /* Mavi Tema (Ocean / Blue) */
         body.tema-mavi {
-            --bg-color: #ccd8ee; --container-bg: #f2f6fc; --header-bg: #2e62aa; --header-text: #ffffff;
-            --text-main: #0e2050; --text-gray: #2e4a88; --card-bg: #dce8f8; --card-border: #90b8e0;
-            --accent: #2e62aa; --accent-soft: #b0ccf0; --btn-minus: #609ac8;
-            --bar1: #2e62aa; --bar2: #2a9878; --bar3: #a87828; --toast-bg: #18367a;
-            --danger: #b82828; --danger-soft: #fce0e0;
-            --nav-bg: #f2f6fc; --nav-border: #90b8e0; --nav-active: #2e62aa;
+            --bg-grad-1:       #eff6ff;
+            --bg-grad-2:       #dbeafe;
+            --accent:          #3b82f6;
+            --accent-soft:     #dbeafe;
+            --accent-glow:     rgba(59, 130, 246, 0.3);
+            --glass-border:    var(--accent-glow);
+            --nav-active:      #3b82f6;
+            --bar1:            #3b82f6; --bar2: #8b5cf6; --bar3: #f59e0b;
         }
-        /* Koyu Tema */
+
+        /* Koyu Tema (Dark Mode Glass) */
         body.tema-gri {
-            --bg-color: #141820; --container-bg: #0e1218; --header-bg: #202a3a; --header-text: #c8d8e8;
-            --text-main: #b0c4d8; --text-gray: #5878a0; --card-bg: #181e2c; --card-border: #28384e;
-            --accent: #3a7ab0; --accent-soft: #182840; --btn-minus: #283848;
-            --bar1: #3a7ab0; --bar2: #2a9878; --bar3: #a88828; --toast-bg: #3a7ab0;
-            --danger: #aa3030; --danger-soft: #281010;
-            --nav-bg: #0e1218; --nav-border: #28384e; --nav-active: #3a7ab0;
+            --bg-grad-1:       #0f172a;
+            --bg-grad-2:       #1e293b;
+            --container-bg:    rgba(30, 41, 59, 0.7);
+            --glass-border:    var(--accent-glow);
+            --header-text:     #f8fafc;
+            --text-main:       #f1f5f9;
+            --text-gray:       #94a3b8;
+            --card-bg:         rgba(30, 41, 59, 0.85);
+            --card-shadow:     0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            --accent:          #38bdf8;
+            --accent-soft:     rgba(56, 189, 248, 0.15);
+            --accent-glow:     rgba(56, 189, 248, 0.2);
+            --btn-minus:       #475569;
+            --nav-bg:          rgba(15, 23, 42, 0.85);
+            --nav-active:      #38bdf8;
+            --toast-bg:        #334155;
+            --danger-soft:     rgba(239, 68, 68, 0.15);
         }
 
         /* Yazı Boyutu Sınıfları */
-        body.font-kucuk { --fs-xs:.62rem; --fs-sm:.74rem; --fs-base:.84rem; --fs-md:.92rem; --fs-lg:1.05rem; --fs-xl:1.40rem; --fs-2xl:2.60rem; }
-        body.font-buyuk { --fs-xs:.78rem; --fs-sm:.92rem; --fs-base:1.04rem; --fs-md:1.14rem; --fs-lg:1.30rem; --fs-xl:1.82rem; --fs-2xl:3.40rem; }
+        body.font-kucuk { --fs-xs:.70rem; --fs-sm:.80rem; --fs-base:.90rem; --fs-md:1.00rem; --fs-lg:1.15rem; --fs-xl:1.50rem; }
+        body.font-buyuk { --fs-xs:.85rem; --fs-sm:.95rem; --fs-base:1.05rem; --fs-md:1.15rem; --fs-lg:1.40rem; --fs-xl:2.00rem; }
 
         /* ===================================================
-           GENEL
+           GENEL YAPI
         =================================================== */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            background: var(--bg-color);
-            font-family: 'Nunito', 'Segoe UI', Tahoma, sans-serif;
-            font-size: var(--fs-base);
-            transition: background 0.3s, color 0.3s;
-            overflow-x: hidden;
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 100%);
+            z-index: -1;
+            transition: background 0.4s ease;
         }
+        body {
+            font-family: 'Nunito', sans-serif;
+            font-size: var(--fs-base);
+            color: var(--text-main);
+            transition: color 0.4s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         .app-container {
-            max-width: 500px;
+            max-width: 480px;
             margin: 0 auto;
             min-height: 100vh;
-            background: var(--container-bg);
             position: relative;
-            box-shadow: 0 0 40px rgba(0,0,0,0.14);
-            padding-bottom: 80px;
+            padding: 24px 20px 100px; /* Alttan nav için boşluk */
         }
 
-        /* HEADER */
+        /* BAŞLIK */
         header {
-            background: var(--header-bg);
-            color: var(--header-text);
-            padding: 16px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            text-align: center;
+            margin-bottom: 24px;
+            padding: 20px;
+            background: var(--accent);
+            color: #ffffff;
+            border-radius: 0 0 24px 24px;
+            box-shadow: 0 4px 20px var(--accent-glow);
+            margin-top: -24px;
+            margin-left: -20px;
+            margin-right: -20px;
+            padding-top: calc(20px + env(safe-area-inset-top, 0px));
+            transition: background 0.4s ease;
         }
         header h1 {
-            font-size: var(--fs-lg);
+            font-size: var(--fs-xl);
             font-weight: 900;
-            letter-spacing: -0.3px;
-        }
-
-        /* ===== BOTTOM NAVIGATION ===== */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 500px;
-            background: var(--nav-bg);
-            border-top: 1.5px solid var(--nav-border);
-            display: flex;
-            z-index: 100;
-            padding-bottom: env(safe-area-inset-bottom, 0px);
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.10);
-        }
-        .bottom-nav-btn {
-            flex: 1;
-            border: none;
-            background: none;
-            color: var(--text-gray);
-            padding: 10px 4px 8px;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 3px;
-            transition: color 0.2s, transform 0.15s;
-            font-family: 'Nunito', sans-serif;
-            position: relative;
-        }
-        .bottom-nav-btn i { font-size: 1.20rem; transition: transform 0.2s; }
-        .bottom-nav-btn span { font-size: 0.63rem; font-weight: 700; }
-        .bottom-nav-btn.active { color: var(--nav-active); }
-        .bottom-nav-btn.active i { transform: translateY(-1px); }
-        .bottom-nav-btn.active::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 36px;
-            height: 3px;
-            background: var(--nav-active);
-            border-radius: 0 0 4px 4px;
+            color: #ffffff;
+            letter-spacing: -0.5px;
         }
 
         /* TABS */
-        .tab-content { display: none; padding: 18px; }
-        .tab-content.active { display: block; animation: fadeIn 0.25s; }
-        @keyframes fadeIn { from { opacity:0; transform:translateY(7px); } to { opacity:1; transform:translateY(0); } }
+        .tab-content { display: none; opacity: 0; transform: translateY(10px); transition: opacity 0.3s ease, transform 0.3s ease; }
+        .tab-content.active { display: block; opacity: 1; transform: translateY(0); }
 
-        /* ===== VAKİT KARTI ===== */
-        .vakit-card {
-            background: linear-gradient(135deg, var(--header-bg), color-mix(in srgb, var(--header-bg) 80%, black));
-            border-radius: 20px;
-            padding: 14px 16px 16px;
-            margin-bottom: 16px;
-            color: #fff;
+        /* ===================================================
+           ZİNCİR (STREAK) KARTLARI
+        =================================================== */
+        .streak-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: var(--accent-soft);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--accent-glow);
+            border-radius: 16px;
+            padding: 12px 16px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px var(--accent-glow);
         }
-        .vakit-card-title {
-            font-size: var(--fs-xs);
-            font-weight: 800;
-            opacity: 0.85;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            margin-bottom: 12px;
+        .streak-card {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
-        .vakit-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 6px;
-        }
-        .vakit-item {
+        .streak-card .icon {
+            font-size: 1.1rem;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 4px;
-            background: rgba(255,255,255,0.14);
-            border-radius: 12px;
-            padding: 9px 3px;
-            transition: background 0.2s;
+            justify-content: center;
         }
-        .vakit-item.current-vakit {
-            background: rgba(255,255,255,0.30);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        .streak-card.highest .icon { color: var(--accent); opacity: 0.9; }
+        .streak-card.current .icon { color: var(--bar3); opacity: 0.9; }
+        .streak-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .vakit-name { font-size: 0.60rem; font-weight: 800; opacity: 0.85; text-align: center; }
-        .vakit-time { font-size: var(--fs-sm); font-weight: 900; text-align: center; }
-
-        /* STREAK */
-        .streak-badge { background: linear-gradient(135deg,#e8942a,#c85018); color:#fff; padding:7px 16px; border-radius:50px; display:inline-flex; align-items:center; gap:8px; font-weight:700; margin-bottom:14px; box-shadow:0 3px 12px rgba(200,80,24,.30); font-size:var(--fs-sm); }
-
-        /* STAT CARDS */
-        .stat-summary { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:18px; }
-        .stat-card { background:var(--card-bg); border:1px solid var(--card-border); padding:15px; border-radius:18px; text-align:center; color:var(--text-main); }
-        .stat-card h3 { font-size:var(--fs-xs); color:var(--text-gray); margin-bottom:6px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; }
-        .stat-card p { font-size:var(--fs-xl); font-weight:900; color:var(--accent); }
-
-        /* PRAYER CARDS */
-        .prayer-card { display:flex; justify-content:space-between; align-items:center; padding:13px 15px; background:var(--card-bg); border-radius:14px; border:1px solid var(--card-border); margin-bottom:9px; color:var(--text-main); }
-        .prayer-name-block { display:flex; flex-direction:column; gap:2px; }
-        .prayer-name-block b { font-size:var(--fs-base); font-weight:800; }
-        .prayer-time-label { font-size:0.63rem; color:var(--accent); font-weight:700; }
-
-        /* COUNTER BUTTONS */
-        .count-btn { border:none; color:#fff; width:36px; height:36px; border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1.15rem; font-weight:700; transition:transform .1s; }
-        .count-btn:active { transform:scale(.88); }
-        .btn-minus { background:var(--btn-minus); }
-        .btn-plus  { background:var(--accent); }
-        .count-num { width:30px; text-align:center; font-weight:800; color:var(--text-main); font-size:var(--fs-md); }
-
-        /* PROGRESS */
-        .progress-section { background:var(--card-bg); border:1px solid var(--card-border); padding:16px; border-radius:18px; margin-bottom:16px; }
-        .progress-label { display:flex; justify-content:space-between; font-size:var(--fs-xs); color:var(--text-gray); margin-bottom:5px; font-weight:700; }
-        .progress-info { color:var(--accent); font-weight:800; }
-        .progress-bar-bg { background:var(--card-border); height:10px; border-radius:8px; overflow:hidden; margin-bottom:14px; }
-        .progress-bar-fill { height:100%; border-radius:8px; transition:width .8s ease-in-out; }
-
-        /* ACCORDION */
-        .accordion-btn { width:100%; padding:12px 15px; background:var(--accent-soft); color:var(--accent); border:1px solid var(--card-border); border-radius:12px; font-weight:800; cursor:pointer; display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:var(--fs-sm); transition:filter .18s; font-family:'Nunito',sans-serif; }
-        .accordion-btn:hover { filter:brightness(.94); }
-        .accordion-btn i.chev { transition:transform .25s; font-size:.78rem; }
-        .accordion-btn.open i.chev { transform:rotate(180deg); }
-        .accordion-content { display:none; }
-        .accordion-content.show { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-bottom:14px; }
-
-        /* DATE NAV */
-        .date-navigation { display:flex; justify-content:space-between; align-items:center; background:var(--card-bg); border:1px solid var(--card-border); padding:10px 14px; border-radius:50px; margin-bottom:18px; color:var(--text-main); font-weight:800; font-size:var(--fs-base); }
-        .nav-date-btn { border:none; background:var(--accent-soft); width:32px; height:32px; border-radius:50%; color:var(--accent); cursor:pointer; display:flex; align-items:center; justify-content:center; }
-
-        /* SETTINGS INPUT */
-        .setting-input { width:90px; padding:9px; border-radius:10px; border:1px solid var(--card-border); background:var(--container-bg); color:var(--text-main); text-align:center; font-weight:700; font-size:var(--fs-base); font-family:'Nunito',sans-serif; }
-
-        /* DIVIDER */
-        .section-divider { border:none; border-top:1px solid var(--card-border); margin:16px 0; }
-
-        /* SETTINGS SECTION LABEL */
-        .settings-section-label {
+        .streak-label {
             font-size: var(--fs-xs);
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
+            font-weight: 700;
             color: var(--text-gray);
-            margin: 14px 0 8px;
-            display: block;
+        }
+        .streak-val {
+            font-size: var(--fs-sm);
+            font-weight: 800;
+            color: var(--text-main);
+            background: var(--card-bg);
+            padding: 3px 8px;
+            border-radius: 8px;
+        }
+        body.tema-gri .streak-val { background: var(--card-bg); color: #fff; }
+        .streak-divider {
+            width: 1px;
+            height: 20px;
+            background: var(--accent-glow);
         }
 
-        /* FONT SIZE SELECTOR */
-        .font-size-btns { display:flex; gap:8px; width:100%; }
-        .fs-btn { flex:1; padding:9px 6px; border:1.5px solid var(--card-border); border-radius:10px; background:var(--card-bg); color:var(--text-main); font-weight:700; cursor:pointer; transition:all .18s; font-size:var(--fs-sm); font-family:'Nunito',sans-serif; }
-        .fs-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
-
-        /* THEME SELECTOR */
-        .theme-selector { display:flex; gap:8px; }
-        .theme-btn {
-            flex: 1;
-            padding: 10px 4px 8px;
-            border: 2.5px solid transparent;
-            border-radius: 14px;
+        /* ===================================================
+           TARİH SEÇİCİ
+        =================================================== */
+        .date-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            padding: 10px 16px;
+            border-radius: 100px;
+            margin-bottom: 24px;
+            box-shadow: var(--card-shadow);
+            font-weight: 700;
+            font-size: var(--fs-base);
+        }
+        .nav-date-btn {
+            border: none;
+            background: var(--accent-soft);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            color: var(--accent);
             cursor: pointer;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 6px;
-            font-size: 0.63rem;
-            font-weight: 800;
-            transition: all 0.2s;
+            justify-content: center;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .nav-date-btn:active { transform: scale(0.9); }
+
+        /* ===================================================
+           VAKİT (NAMAZ) KARTLARI
+        =================================================== */
+        .prayer-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: var(--card-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            margin-bottom: 12px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .prayer-name-block { display: flex; flex-direction: column; gap: 4px; }
+        .prayer-name-block b { font-size: var(--fs-md); font-weight: 800; }
+        .prayer-time-label {
+            font-size: var(--fs-xs);
+            color: var(--text-gray);
+            font-weight: 600;
+            background: var(--accent-soft);
+            padding: 2px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            width: fit-content;
+        }
+
+        /* SAYAÇ BUTONLARI */
+        .counter-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0,0,0,0.03);
+            padding: 6px;
+            border-radius: 16px;
+        }
+        body.tema-gri .counter-group { background: rgba(255,255,255,0.03); }
+        .count-btn {
+            border: none;
             color: #fff;
-            font-family: 'Nunito', sans-serif;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: transform 0.15s, opacity 0.2s;
         }
-        .theme-btn.t0 { background: #3d7a5e; }
-        .theme-btn.t1 { background: #a87228; }
-        .theme-btn.t2 { background: #2e62aa; }
-        .theme-btn.t3 { background: #202a3a; }
-        .theme-btn .theme-swatch {
-            width: 26px; height: 26px;
-            border-radius: 50%;
-            border: 2.5px solid rgba(255,255,255,0.5);
+        .count-btn:active { transform: scale(0.85); }
+        .btn-minus { background: var(--btn-minus); }
+        .btn-plus  { background: var(--accent); box-shadow: 0 4px 12px var(--accent-glow); }
+        .count-num {
+            width: 32px;
+            text-align: center;
+            font-weight: 800;
+            font-size: var(--fs-lg);
         }
-        .theme-btn.t0 .theme-swatch { background: #bcdeca; }
-        .theme-btn.t1 .theme-swatch { background: #f0d898; }
-        .theme-btn.t2 .theme-swatch { background: #b0ccf0; }
-        .theme-btn.t3 .theme-swatch { background: #3a7ab0; }
-        .theme-btn.active { outline: 3px solid var(--text-main); outline-offset: 2px; transform: scale(1.04); }
 
-        /* PREDICTION CARD */
-        .prediction-card { background:var(--header-bg); color:#fff; padding:26px 22px; border-radius:20px; text-align:center; }
-        .prediction-card h3 { font-size:var(--fs-md); margin-bottom:18px; opacity:.92; font-weight:800; }
-        .prediction-card label { font-size:var(--fs-xs); opacity:.85; display:block; margin-bottom:7px; font-weight:700; }
-        .prediction-result { background:rgba(255,255,255,.16); padding:14px 18px; border-radius:14px; margin-top:14px; font-size:var(--fs-base); line-height:1.9; }
+        /* ===================================================
+           İSTATİSTİK (TOPLAMLAR) SEKMESİ
+        =================================================== */
+        .stat-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .stat-card {
+            background: var(--card-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border); padding: 20px; border-radius: 20px; text-align: left;
+            box-shadow: var(--card-shadow); display: flex; flex-direction: column; position: relative; overflow: hidden;
+        }
+        .stat-card .stat-icon { position: absolute; right: -5px; bottom: -10px; font-size: 4.5rem; opacity: 0.08; transform: rotate(-10deg); }
+        body.tema-gri .stat-card .stat-icon { opacity: 0.15; }
+        .stat-card h3 { font-size: var(--fs-xs); color: var(--text-gray); margin-bottom: 6px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; z-index: 2; }
+        .stat-card p { font-size: var(--fs-xl); font-weight: 900; color: var(--text-main); line-height: 1; z-index: 2; }
 
-        /* ACTION BUTTONS */
-        .action-btn { display:flex; align-items:center; justify-content:center; gap:8px; padding:13px; border:none; border-radius:12px; color:#fff; font-weight:700; cursor:pointer; font-size:var(--fs-sm); transition:opacity .2s,transform .1s; font-family:'Nunito',sans-serif; }
-        .action-btn:hover { opacity:.88; }
-        .action-btn:active { transform:scale(.97); }
+        /* PROGRESS CARDS */
+        .progress-cards-container { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+        .progress-card {
+            background: var(--card-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border); padding: 16px 20px; border-radius: 20px; box-shadow: var(--card-shadow);
+        }
+        .prog-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: var(--fs-sm); font-weight: 700; color: var(--text-gray); }
+        .prog-header i { font-size: var(--fs-md); width: 20px; text-align: center; }
+        .prog-header strong { margin-left: auto; color: var(--text-main); font-weight: 800; font-size: var(--fs-base); }
+        .progress-bar-bg { background: rgba(0,0,0,0.06); height: 12px; border-radius: 10px; overflow: hidden; }
+        body.tema-gri .progress-bar-bg { background: rgba(255,255,255,0.06); }
+        .progress-bar-fill { height: 100%; border-radius: 10px; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
 
-        /* DANGER BUTTON */
-        .btn-danger-sm { display:flex; align-items:center; justify-content:center; gap:7px; padding:10px 14px; border:1.5px solid var(--danger); border-radius:12px; background:var(--danger-soft); color:var(--danger); font-weight:700; cursor:pointer; font-size:var(--fs-xs); width:100%; margin-top:10px; transition:all .2s; font-family:'Nunito',sans-serif; }
-        .btn-danger-sm:hover { background:var(--danger); color:#fff; }
+        /* ACCORDION */
+        .accordion-btn {
+            width: 100%; padding: 16px 20px; background: var(--card-bg); backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border);
+            color: var(--text-main); border-radius: 16px; font-weight: 800; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+            font-size: var(--fs-base); font-family: 'Nunito', sans-serif; box-shadow: var(--card-shadow);
+        }
+        .accordion-btn i.chev { transition: transform 0.3s ease; color: var(--text-gray); }
+        .accordion-btn.open i.chev { transform: rotate(180deg); }
+        .accordion-content { display: none; margin-bottom: 20px; }
+        .accordion-content.show { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; animation: slideDown 0.3s ease; }
+        @keyframes slideDown { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
 
-        /* MODAL */
-        .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.54); z-index:2000; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .3s; }
-        .modal-overlay.show { opacity:1; pointer-events:all; }
-        .modal-box { background:var(--container-bg); border-radius:24px; padding:30px 22px; text-align:center; max-width:340px; width:92%; box-shadow:0 24px 64px rgba(0,0,0,.24); transform:scale(.88); transition:transform .3s; }
-        .modal-overlay.show .modal-box { transform:scale(1); }
-        .modal-emoji { font-size:var(--fs-2xl); margin-bottom:12px; }
-        .modal-title { font-size:var(--fs-lg); font-weight:900; color:var(--text-main); margin-bottom:8px; }
-        .modal-msg { font-size:var(--fs-sm); color:var(--text-gray); margin-bottom:20px; line-height:1.6; }
-        .modal-close-btn { background:var(--accent); color:#fff; border:none; border-radius:12px; padding:11px 30px; font-weight:800; cursor:pointer; font-size:var(--fs-base); font-family:'Nunito',sans-serif; }
+        .remain-item, .kilinen-item {
+            background: var(--card-bg); border: 1px solid var(--glass-border);
+            border-radius: 14px; padding: 12px 16px; display: flex; justify-content: space-between;
+            align-items: center; font-size: var(--fs-sm); font-weight: 700;
+        }
+        .remain-item span, .kilinen-item span { display: flex; align-items: center; gap: 8px; color: var(--text-main); }
+        .remain-item b { font-size: var(--fs-base); color: var(--danger); }
+        .remain-item.done b { color: var(--accent); }
+        .kilinen-item b { font-size: var(--fs-base); color: var(--text-main); }
+
+        /* ===================================================
+           BİTİŞ TAHMİNİ SEKMESİ
+        =================================================== */
+        .yearly-progress-card {
+            background: var(--card-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border); padding: 20px; border-radius: 20px; margin-bottom: 20px; box-shadow: var(--card-shadow);
+        }
+        .yearly-progress-header { display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px; }
+        .yearly-progress-title { font-weight: 800; font-size: var(--fs-md); display:flex; align-items:center; gap:8px; color: var(--text-main); }
+        .yearly-progress-stats { font-size: var(--fs-sm); font-weight: 800; color: var(--accent); background: var(--accent-soft); padding: 4px 10px; border-radius: 8px; }
+        .yearly-progress-bar-bg { background: rgba(0,0,0,0.06); height: 16px; border-radius: 12px; overflow: hidden; position: relative; }
+        body.tema-gri .yearly-progress-bar-bg { background: rgba(255,255,255,0.06); }
+        .yearly-progress-bar-fill { height: 100%; border-radius: 12px; background: linear-gradient(90deg, var(--bar1), var(--bar2)); transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .yearly-progress-text { margin-top: 14px; font-size: var(--fs-sm); color: var(--text-gray); font-weight: 600; line-height: 1.5; text-align: center; }
+
+        .prediction-card {
+            background: var(--card-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border); padding: 24px 20px; border-radius: 20px; text-align: center;
+            box-shadow: var(--card-shadow); margin-bottom: 24px;
+        }
+        .prediction-card h3 { font-size: var(--fs-lg); margin-bottom: 20px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 10px; color: var(--text-main); }
+        .prediction-card h3 i { color: var(--accent); font-size: 1.2em; }
+        .prediction-card label { font-size: var(--fs-sm); display: block; margin-bottom: 12px; font-weight: 700; color: var(--text-gray); }
+        .prediction-card .setting-input { width: 100px; margin: 0 auto 16px; font-size: var(--fs-lg); background: rgba(0,0,0,0.03); color: var(--text-main); font-weight: 800; border: 1px solid var(--glass-border); transition: all 0.2s; border-radius: 12px; padding: 10px; text-align: center; font-family: 'Nunito', sans-serif; }
+        body.tema-gri .prediction-card .setting-input { background: rgba(255,255,255,0.05); }
+        .prediction-card .setting-input:focus { background: transparent; outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+        .prediction-result { background: rgba(0,0,0,0.03); padding: 16px; border-radius: 16px; font-size: var(--fs-base); font-weight: 700; line-height: 1.4; color: var(--text-main); margin-top: 8px; border: 1px solid var(--glass-border); }
+        body.tema-gri .prediction-result { background: rgba(255,255,255,0.03); }
+        .prediction-result span { display: block; font-size: var(--fs-lg); font-weight: 900; color: var(--accent); opacity: 1; margin-top: 6px; }
+
+        .acceleration-card {
+            background: var(--card-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border); padding: 20px; border-radius: 20px; box-shadow: var(--card-shadow);
+        }
+        .acceleration-title { font-weight: 800; font-size: var(--fs-md); margin-bottom: 16px; color: var(--text-main); display:flex; align-items:center; gap:8px; }
+        .accel-item { display: flex; justify-content: space-between; align-items: center; padding: 14px; background: rgba(0,0,0,0.03); border-radius: 16px; margin-bottom: 10px; border: 1px solid var(--glass-border); }
+        body.tema-gri .accel-item { background: rgba(255,255,255,0.03); }
+        .accel-item:last-child { margin-bottom: 0; }
+        .accel-badge { background: var(--accent); color: #fff; padding: 6px 12px; border-radius: 10px; font-weight: 800; font-size: var(--fs-sm); box-shadow: 0 4px 12px var(--accent-glow); }
+        .accel-info { text-align: right; }
+        .accel-date { font-weight: 800; color: var(--text-main); font-size: var(--fs-base); margin-bottom: 2px; }
+        .accel-diff { font-size: var(--fs-xs); color: var(--bar2); font-weight: 700; display:flex; align-items:center; gap:4px; justify-content:flex-end; }
+
+        /* ===================================================
+           AYARLAR SEKMESİ
+        =================================================== */
+        .settings-section-label {
+            font-size: var(--fs-xs); font-weight: 800; text-transform: uppercase;
+            letter-spacing: 1px; color: var(--text-gray); margin: 24px 0 12px; display: block;
+            padding-left: 4px;
+        }
+        .setting-input {
+            width: 80px; padding: 10px; border-radius: 12px; border: 1px solid var(--glass-border);
+            background: rgba(0,0,0,0.03); color: var(--text-main); text-align: center;
+            font-weight: 700; font-size: var(--fs-sm); font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+        body.tema-gri .setting-input { background: rgba(255,255,255,0.05); }
+        .setting-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+        .section-divider { border: none; border-top: 1px dashed var(--glass-border); margin: 20px 0; }
+
+        /* TEMA & FONT SEÇİCİ */
+        .theme-selector, .font-size-btns { display: flex; gap: 10px; }
+        .theme-btn, .fs-btn {
+            flex: 1; padding: 12px 8px; border: 2px solid transparent; border-radius: 16px;
+            background: var(--card-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+            box-shadow: var(--card-shadow); cursor: pointer; display: flex; flex-direction: column;
+            align-items: center; gap: 8px; font-size: var(--fs-xs); font-weight: 700;
+            color: var(--text-main); font-family: 'Inter', sans-serif; transition: all 0.2s;
+        }
+        .fs-btn { flex-direction: row; justify-content: center; font-size: var(--fs-sm); }
+        .theme-btn.active, .fs-btn.active { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); transform: translateY(-2px); }
+        
+        .theme-swatch { width: 32px; height: 32px; border-radius: 50%; border: 2px solid rgba(0,0,0,0.1); }
+        .theme-btn.t0 .theme-swatch { background: linear-gradient(135deg, #10b981, #34d399); }
+        .theme-btn.t1 .theme-swatch { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+        .theme-btn.t2 .theme-swatch { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+        .theme-btn.t3 .theme-swatch { background: linear-gradient(135deg, #0f172a, #334155); }
+
+        /* BUTTONS */
+        .action-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border: none; border-radius: 16px; color: #fff; font-weight: 700; cursor: pointer; font-size: var(--fs-sm); transition: transform 0.15s, opacity 0.2s; font-family: 'Inter', sans-serif; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .action-btn:active { transform: scale(0.96); }
+        .btn-danger-sm { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border: 1.5px solid var(--danger); border-radius: 16px; background: var(--danger-soft); color: var(--danger); font-weight: 700; cursor: pointer; font-size: var(--fs-sm); width: 100%; margin-top: 12px; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+        .btn-danger-sm:hover { background: var(--danger); color: #fff; }
+
+        /* ===================================================
+           ALT NAVİGASYON (FLOATING)
+        =================================================== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 40px);
+            max-width: 440px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            display: flex;
+            z-index: 100;
+            padding: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        body.tema-gri .bottom-nav { box-shadow: 0 10px 40px rgba(0,0,0,0.4); }
+        .bottom-nav-btn {
+            flex: 1; border: none; background: transparent; color: var(--text-gray);
+            padding: 10px 4px; cursor: pointer; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Inter', sans-serif; border-radius: 16px;
+        }
+        .bottom-nav-btn i { font-size: 1.25rem; transition: transform 0.3s; margin-bottom: 4px; }
+        .bottom-nav-btn span { font-size: 0.65rem; font-weight: 700; opacity: 0.7; transition: all 0.3s; }
+        
+        .bottom-nav-btn.active { color: var(--nav-active); background: var(--accent-soft); }
+        .bottom-nav-btn.active i { transform: translateY(-2px); }
+        .bottom-nav-btn.active span { opacity: 1; }
+
+        /* ===================================================
+           MODAL & TOAST
+        =================================================== */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+        .modal-overlay.show { opacity: 1; pointer-events: all; }
+        .modal-box { background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 28px; padding: 32px 24px; text-align: center; max-width: 340px; width: 92%; box-shadow: 0 24px 64px rgba(0,0,0,0.3); transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); color: var(--text-main); }
+        .modal-overlay.show .modal-box { transform: scale(1); }
+        .modal-emoji { font-size: var(--fs-2xl); margin-bottom: 16px; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-15px);} 60% {transform: translateY(-7px);} }
+        .modal-title { font-size: var(--fs-lg); font-weight: 900; margin-bottom: 10px; }
+        .modal-msg { font-size: var(--fs-sm); color: var(--text-gray); margin-bottom: 24px; line-height: 1.6; font-weight: 500; }
+        .modal-close-btn { background: var(--accent); color: #fff; border: none; border-radius: 16px; padding: 14px 32px; font-weight: 800; cursor: pointer; font-size: var(--fs-base); font-family: 'Inter', sans-serif; box-shadow: 0 4px 15px var(--accent-glow); transition: transform 0.2s; }
+        .modal-close-btn:active { transform: scale(0.95); }
 
         /* HİBRİT IMPORT MODAL */
-        .import-modal-box { max-width:360px; text-align:left; }
-        .import-modal-box .modal-title { text-align:left; margin-bottom:14px; }
-        .import-tabs { display:flex; gap:7px; margin-bottom:14px; }
-        .import-tab-btn { flex:1; padding:9px; border:1.5px solid var(--card-border); border-radius:10px; background:var(--card-bg); color:var(--text-main); font-weight:700; cursor:pointer; font-size:var(--fs-sm); transition:all .18s; font-family:'Nunito',sans-serif; }
-        .import-tab-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
-        .import-panel { display:none; }
-        .import-panel.active { display:block; }
-        .import-file-zone { border:2px dashed var(--card-border); border-radius:12px; padding:22px; text-align:center; color:var(--text-gray); font-size:var(--fs-sm); cursor:pointer; transition:border-color .2s,color .2s; margin-bottom:8px; }
-        .import-file-zone:hover { border-color:var(--accent); color:var(--accent); }
-        .import-textarea { width:100%; height:112px; padding:10px; border-radius:10px; border:1.5px solid var(--card-border); background:var(--card-bg); color:var(--text-main); font-size:var(--fs-xs); resize:none; font-family:monospace; margin-bottom:10px; }
-        .import-apply-btn { width:100%; padding:12px; background:var(--accent); color:#fff; border:none; border-radius:12px; font-weight:800; cursor:pointer; font-size:var(--fs-base); margin-top:4px; font-family:'Nunito',sans-serif; }
-        .import-cancel-btn { width:100%; margin-top:8px; padding:10px; background:none; border:1.5px solid var(--card-border); border-radius:12px; color:var(--text-gray); font-weight:700; cursor:pointer; font-size:var(--fs-sm); font-family:'Nunito',sans-serif; }
+        .import-modal-box { max-width: 380px; text-align: left; padding: 24px; }
+        .import-modal-box .modal-title { text-align: left; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .import-tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+        .import-tab-btn { flex: 1; padding: 10px; border: 1px solid var(--glass-border); border-radius: 12px; background: rgba(0,0,0,0.03); color: var(--text-gray); font-weight: 700; cursor: pointer; font-size: var(--fs-sm); transition: all 0.2s; font-family: 'Inter', sans-serif; }
+        body.tema-gri .import-tab-btn { background: rgba(255,255,255,0.05); }
+        .import-tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+        .import-panel { display: none; }
+        .import-panel.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+        .import-file-zone { border: 2px dashed var(--text-gray); border-radius: 16px; padding: 24px; text-align: center; color: var(--text-gray); font-size: var(--fs-sm); cursor: pointer; transition: all 0.2s; margin-bottom: 12px; font-weight: 600; }
+        .import-file-zone:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+        .import-textarea { width: 100%; height: 120px; padding: 12px; border-radius: 12px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.03); color: var(--text-main); font-size: var(--fs-xs); resize: none; font-family: monospace; margin-bottom: 12px; }
+        body.tema-gri .import-textarea { background: rgba(255,255,255,0.05); }
+        .import-apply-btn { width: 100%; padding: 14px; background: var(--accent); color: #fff; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: var(--fs-sm); margin-top: 8px; font-family: 'Inter', sans-serif; }
+        .import-cancel-btn { width: 100%; margin-top: 8px; padding: 12px; background: transparent; border: 1px solid var(--glass-border); border-radius: 12px; color: var(--text-gray); font-weight: 700; cursor: pointer; font-size: var(--fs-sm); font-family: 'Inter', sans-serif; }
 
         /* TOAST */
-        #toast-container { position:fixed; top:0; left:50%; transform:translateX(-50%); z-index:3000; width:100%; max-width:500px; pointer-events:none; }
-        .toast { background:var(--toast-bg); color:#fff; padding:13px 18px; margin:10px 12px; border-radius:14px; display:flex; align-items:center; gap:12px; box-shadow:0 8px 28px rgba(0,0,0,.22); font-size:var(--fs-sm); font-weight:700; animation:toastDrop .4s ease,toastFade .4s ease 3.1s forwards; }
-        .toast i { font-size:1.1rem; flex-shrink:0; }
-        @keyframes toastDrop { from { opacity:0; transform:translateY(-28px); } to { opacity:1; transform:translateY(0); } }
-        @keyframes toastFade { from { opacity:1; } to { opacity:0; transform:translateY(-10px); } }
+        #toast-container { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 3000; width: calc(100% - 40px); max-width: 440px; pointer-events: none; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: var(--toast-bg); backdrop-filter: blur(10px); color: #fff; padding: 16px 20px; border-radius: 16px; display: flex; align-items: center; gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); font-size: var(--fs-sm); font-weight: 600; animation: toastSlide 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, toastFade 0.4s ease 3.1s forwards; border: 1px solid rgba(255,255,255,0.1); }
+        .toast i { font-size: 1.2rem; color: var(--accent); }
+        @keyframes toastSlide { from { opacity:0; transform:translateY(-30px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes toastFade { from { opacity:1; transform:translateY(0); } to { opacity:0; transform:translateY(-20px); } }
 
-        /* REMAIN / KİLİNEN */
-        .remain-item, .kilinen-item { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; font-size:var(--fs-sm); color:var(--text-main); font-weight:700; }
-        .remain-item b { font-size:var(--fs-md); color:var(--accent); }
-        .remain-item.done b { color:#28a05a; }
-        .kilinen-item b { font-size:var(--fs-md); color:var(--bar2); }
     </style>
 </head>
 <body>
 
 <div class="app-container">
     <header>
-        <h1>Kaza Namazı Takibim</h1>
+        <h1>Kaza Takibim</h1>
     </header>
 
     <main>
         <!-- TAB 1: ANA SAYFA / KAYIT GİR -->
         <div id="tab1" class="tab-content active">
-            <!-- İstanbul Namaz Vakitleri Kartı -->
-           
-
-            <div style="text-align:center;">
-                <div id="streakDisplay" class="streak-badge">
-                    <i class="fas fa-fire"></i> <span id="streakCount">0</span> Günlük Zincir
+            
+            <div class="streak-container">
+                <div class="streak-card highest">
+                    <div class="icon"><i class="fas fa-crown"></i></div>
+                    <div class="streak-info">
+                        <span class="streak-label">Zincir Rekoru</span>
+                        <span class="streak-val" id="highestStreakCount">0</span>
+                    </div>
+                </div>
+                <div class="streak-divider"></div>
+                <div class="streak-card current">
+                    <div class="icon"><i class="fas fa-fire"></i></div>
+                    <div class="streak-info">
+                        <span class="streak-label">Mevcut Zincir</span>
+                        <span class="streak-val" id="streakCount">0</span>
+                    </div>
                 </div>
             </div>
+
             <div class="date-navigation">
                 <button id="prevDayBtn" class="nav-date-btn"><i class="fas fa-chevron-left"></i></button>
                 <span id="selectedDateDisplay"></span>
                 <button id="nextDayBtn" class="nav-date-btn"><i class="fas fa-chevron-right"></i></button>
             </div>
+            
             <div id="prayerGridContainer"></div>
         </div>
 
         <!-- TAB 2: TOPLAMLAR -->
         <div id="tab2" class="tab-content">
+            
             <div class="stat-summary">
-                <div class="stat-card"><h3>Kılınan Gün</h3><p id="completedDays">0</p></div>
-                <div class="stat-card"><h3>Toplam Vakit</h3><p id="totalQada">0</p></div>
+                <div class="stat-card">
+                    <i class="fas fa-sun stat-icon" style="color:var(--bar2);"></i>
+                    <h3>Kılınan Gün</h3>
+                    <p id="completedDays">0</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-layer-group stat-icon" style="color:var(--accent);"></i>
+                    <h3>Toplam Vakit</h3>
+                    <p id="totalQada">0</p>
+                </div>
             </div>
-            <div class="progress-section">
-                <div class="progress-label"><span>Döngüdeki Yıl</span><span id="yearInfo" class="progress-info">0 / 0 Yıl</span></div>
-                <div class="progress-bar-bg"><div id="yearBar" class="progress-bar-fill" style="background:var(--bar1);width:0%"></div></div>
-                <div class="progress-label"><span>Döngüdeki Ay</span><span id="monthInfo" class="progress-info">0 / 0 Ay</span></div>
-                <div class="progress-bar-bg"><div id="monthBar" class="progress-bar-fill" style="background:var(--bar2);width:0%"></div></div>
-                <div class="progress-label"><span>Toplam Borç Oranı</span><span id="dayInfo" class="progress-info">0 / 0 Gün</span></div>
-                <div class="progress-bar-bg"><div id="dayBar" class="progress-bar-fill" style="background:var(--bar3);width:0%"></div></div>
+
+            <div class="progress-cards-container">
+                <div class="progress-card">
+                    <div class="prog-header">
+                        <i class="fas fa-calendar-alt" style="color:var(--bar1);"></i>
+                        <span>Döngüdeki Yıl</span>
+                        <strong id="yearInfo">0 / 0 Yıl</strong>
+                    </div>
+                    <div class="progress-bar-bg"><div id="yearBar" class="progress-bar-fill" style="background:var(--bar1);width:0%"></div></div>
+                </div>
+                <div class="progress-card">
+                    <div class="prog-header">
+                        <i class="fas fa-moon" style="color:var(--bar2);"></i>
+                        <span>Döngüdeki Ay</span>
+                        <strong id="monthInfo">0 / 0 Ay</strong>
+                    </div>
+                    <div class="progress-bar-bg"><div id="monthBar" class="progress-bar-fill" style="background:var(--bar2);width:0%"></div></div>
+                </div>
+                <div class="progress-card">
+                    <div class="prog-header">
+                        <i class="fas fa-chart-pie" style="color:var(--bar3);"></i>
+                        <span>Toplam Borç Oranı</span>
+                        <strong id="dayInfo">0 / 0 Gün</strong>
+                    </div>
+                    <div class="progress-bar-bg"><div id="dayBar" class="progress-bar-fill" style="background:var(--bar3);width:0%"></div></div>
+                </div>
             </div>
+            
             <button class="accordion-btn" id="toggleKilinen">
-                <span><i class="fas fa-check-circle" style="margin-right:7px;opacity:.75;"></i>Toplam Kılınan Vakitler</span>
+                <span><i class="fas fa-check-circle" style="margin-right:8px;color:var(--accent);"></i> Toplam Kılınan Vakitler</span>
                 <i class="fas fa-chevron-down chev"></i>
             </button>
             <div id="kilinenGrid" class="accordion-content"></div>
+            
             <button class="accordion-btn" id="toggleDetails">
-                <span><i class="fas fa-clock" style="margin-right:7px;opacity:.75;"></i>Kalan Borçlar</span>
+                <span><i class="fas fa-clock" style="margin-right:8px;color:var(--bar3);"></i> Kalan Borçlar</span>
                 <i class="fas fa-chevron-down chev"></i>
             </button>
             <div id="remainingGrid" class="accordion-content"></div>
@@ -429,15 +629,16 @@
 
         <!-- TAB 5: BİTİŞ TAHMİNİ -->
         <div id="tab5" class="tab-content">
-            <div style="display:flex;justify-content:center;align-items:flex-start;">
-                <div class="prediction-card" style="width:100%;max-width:400px;">
-                    <h3><i class="fas fa-calendar-check" style="margin-right:8px;"></i>Tahmini Bitiş</h3>
-                    <label>Günde Kaç Vakit Kaza?</label>
-                    <input type="number" id="dailyGoalInput" value="5" class="setting-input"
-                           style="border:none;background:rgba(255,255,255,.18);color:#fff;display:block;margin:0 auto 4px;">
-                    <div id="predictionResult" class="prediction-result"></div>
-                </div>
+            <div class="prediction-card">
+                <h3><i class="fas fa-calendar-check"></i> Tahmini Bitiş</h3>
+                <label>Şu an Günde Kaç Vakit Kılıyorsun?</label>
+                <input type="number" id="dailyGoalInput" value="5" class="setting-input" min="1">
+                <div id="predictionResult" class="prediction-result"></div>
             </div>
+
+            <div id="yearlyProgressCard"></div>
+
+            <div id="accelerationCard"></div>
         </div>
 
         <!-- TAB 6: AYARLAR -->
@@ -453,43 +654,29 @@
             <hr class="section-divider">
 
             <!-- Tema Seçimi -->
-            <span class="settings-section-label">Tema Rengi</span>
+            <span class="settings-section-label">Tema Görünümü</span>
             <div class="theme-selector">
-                <button class="theme-btn t0 active" data-theme-idx="0">
-                    <div class="theme-swatch"></div>
-                    Yeşil
-                </button>
-                <button class="theme-btn t1" data-theme-idx="1">
-                    <div class="theme-swatch"></div>
-                    Sarı
-                </button>
-                <button class="theme-btn t2" data-theme-idx="2">
-                    <div class="theme-swatch"></div>
-                    Mavi
-                </button>
-                <button class="theme-btn t3" data-theme-idx="3">
-                    <div class="theme-swatch"></div>
-                    Koyu
-                </button>
+                <button class="theme-btn t0 active" data-theme-idx="0"><div class="theme-swatch"></div>Yeşil</button>
+                <button class="theme-btn t1" data-theme-idx="1"><div class="theme-swatch"></div>Sarı</button>
+                <button class="theme-btn t2" data-theme-idx="2"><div class="theme-swatch"></div>Mavi</button>
+                <button class="theme-btn t3" data-theme-idx="3"><div class="theme-swatch"></div>Koyu</button>
             </div>
 
             <hr class="section-divider">
 
             <!-- Yazı Boyutu -->
             <span class="settings-section-label">Yazı Boyutu</span>
-            <div class="prayer-card" style="flex-direction:column;align-items:flex-start;gap:10px;padding-bottom:14px;">
-                <div class="font-size-btns">
-                    <button class="fs-btn" data-size="font-kucuk">Küçük</button>
-                    <button class="fs-btn active" data-size="font-orta">Orta</button>
-                    <button class="fs-btn" data-size="font-buyuk">Büyük</button>
-                </div>
+            <div class="font-size-btns">
+                <button class="fs-btn" data-size="font-kucuk">A-</button>
+                <button class="fs-btn active" data-size="font-orta">A</button>
+                <button class="fs-btn" data-size="font-buyuk">A+</button>
             </div>
 
             <hr class="section-divider">
 
             <!-- Veri Yönetimi -->
             <span class="settings-section-label">Veri Yönetimi</span>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
                 <button id="exportBtn" class="action-btn" style="background:var(--bar1);"><i class="fas fa-download"></i> Yedek Al</button>
                 <button id="importBtn" class="action-btn" style="background:var(--bar2);"><i class="fas fa-upload"></i> Yükle</button>
             </div>
@@ -508,7 +695,7 @@
         <span>Ana Sayfa</span>
     </button>
     <button class="bottom-nav-btn" data-tab="tab2">
-        <i class="fas fa-chart-bar"></i>
+        <i class="fas fa-chart-pie"></i>
         <span>Toplamlar</span>
     </button>
     <button class="bottom-nav-btn" data-tab="tab5">
@@ -534,22 +721,18 @@
 <!-- HİBRİT IMPORT MODALI -->
 <div id="importModal" class="modal-overlay">
     <div class="modal-box import-modal-box">
-        <div class="modal-title"><i class="fas fa-upload" style="margin-right:8px;color:var(--accent);"></i>Yedek Yükle</div>
+        <div class="modal-title"><i class="fas fa-cloud-upload-alt" style="color:var(--accent);"></i> Yedek Yükle</div>
         <div class="import-tabs">
-            <button class="import-tab-btn active" data-import-tab="file">
-                <i class="fas fa-folder-open"></i> Dosya Seç
-            </button>
-            <button class="import-tab-btn" data-import-tab="text">
-                <i class="fas fa-paste"></i> Metin Yapıştır
-            </button>
+            <button class="import-tab-btn active" data-import-tab="file"><i class="fas fa-folder-open"></i> Dosya Seç</button>
+            <button class="import-tab-btn" data-import-tab="text"><i class="fas fa-paste"></i> Metin Yapıştır</button>
         </div>
         <div id="importPanelFile" class="import-panel active">
             <div class="import-file-zone" id="importFileZone">
-                <i class="fas fa-cloud-upload-alt" style="font-size:1.8rem;margin-bottom:8px;display:block;"></i>
-                Tıkla veya yedek dosyasını seç
+                <i class="fas fa-file-import" style="font-size:2rem;margin-bottom:12px;display:block;opacity:0.8;"></i>
+                Tıkla veya yedek dosyasını buraya seç
             </div>
             <input type="file" id="fileInput2" style="display:none" accept=".json">
-            <div id="importFileName" style="font-size:var(--fs-xs);color:var(--text-gray);min-height:18px;text-align:center;margin-bottom:4px;"></div>
+            <div id="importFileName" style="font-size:var(--fs-xs);color:var(--text-main);min-height:20px;text-align:center;font-weight:600;"></div>
         </div>
         <div id="importPanelText" class="import-panel">
             <textarea id="importTextarea" class="import-textarea" placeholder="Buraya yedek JSON metnini yapıştır..."></textarea>
@@ -588,7 +771,7 @@
             Object.keys(def).forEach(k => { if (c[k]===undefined) { c[k]=def[k]; ch=true; } });
             if (ch) localStorage.setItem('last_celebrations', JSON.stringify(c));
         }
-        // Nafile ve vakit yedekleme alanlarını başlat (mevcut verilere zarar vermeden)
+        // Nafile ve vakit yedekleme alanlarını başlat
         if (!localStorage.getItem('istanbul_vakitler')) {
             localStorage.setItem('istanbul_vakitler', JSON.stringify({ date: '', times: {} }));
         }
@@ -618,7 +801,7 @@ let lastCheckedDone = JSON.parse(localStorage.getItem('last_celebrations'))   ||
 let fontSize        = localStorage.getItem('font_size') || 'font-orta';
 let currentDate     = new Date(); currentDate.setHours(0,0,0,0);
 let importFileData  = null;
-let prayerTimes     = {};  // { 'Sabah': '05:20', 'Öğle': '13:05', ... }
+let prayerTimes     = {};
 
 function init() {
     applyTheme();
@@ -634,6 +817,16 @@ function init() {
 function applyTheme() {
     const keep = document.body.className.replace(/tema-\S+/g,'').trim();
     document.body.className = [keep, THEMES[themeIdx]].filter(Boolean).join(' ');
+    
+    // Meta theme color update for mobile status bar
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if(metaThemeColor) {
+        if(themeIdx === 0) metaThemeColor.setAttribute("content", "#fdfbfb");
+        else if(themeIdx === 1) metaThemeColor.setAttribute("content", "#fffbeb");
+        else if(themeIdx === 2) metaThemeColor.setAttribute("content", "#eff6ff");
+        else if(themeIdx === 3) metaThemeColor.setAttribute("content", "#0f172a");
+    }
+
     document.querySelectorAll('.theme-btn').forEach(btn => {
         btn.classList.toggle('active', parseInt(btn.dataset.themeIdx) === themeIdx);
     });
@@ -650,22 +843,17 @@ function applyFontSize(size) {
 /* ===== İSTANBUL NAMAZ VAKİTLERİ (Diyanet/Aladhan API) ===== */
 async function fetchPrayerTimes() {
     const today = new Date().toISOString().split('T')[0];
-
-    // Önce cache kontrol
     try {
         const cached = JSON.parse(localStorage.getItem('istanbul_vakitler') || '{}');
         if (cached.date === today && Object.keys(cached.times || {}).length === 5) {
             prayerTimes = cached.times;
-            renderPrayerTimes();
+            renderInputs();
             return;
         }
     } catch(e) {}
 
-    // API'den çek
     try {
-        const res = await fetch(
-            `https://api.aladhan.com/v1/timingsByCity?city=Istanbul&country=Turkey&method=13`
-        );
+        const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=Istanbul&country=Turkey&method=13`);
         if (!res.ok) throw new Error('API yanıt vermedi');
         const data = await res.json();
         if (data.code === 200 && data.data && data.data.timings) {
@@ -676,74 +864,44 @@ async function fetchPrayerTimes() {
             });
             prayerTimes = times;
             localStorage.setItem('istanbul_vakitler', JSON.stringify({ date: today, times }));
-            renderPrayerTimes();
+            renderInputs();
         }
     } catch(e) {
-        // İnternet yoksa son kaydedilen veriyi göster
         try {
             const cached = JSON.parse(localStorage.getItem('istanbul_vakitler') || '{}');
             if (cached.times && Object.keys(cached.times).length > 0) {
                 prayerTimes = cached.times;
-                renderPrayerTimes();
+                renderInputs();
             }
         } catch(e2) {}
-        console.warn('Vakit alınamadı (offline?):', e.message);
     }
-}
-
-function renderPrayerTimes() {
-    // Vakit kartını güncelle
-    MAIN_5.forEach(name => {
-        const el = document.getElementById('vt-' + name);
-        if (el && prayerTimes[name]) el.textContent = prayerTimes[name];
-    });
-    // Aktif vakti vurgula
-    highlightCurrentVakit();
-    // Namaz kartlarındaki vakitleri de güncelle
-    renderInputs();
-}
-
-function highlightCurrentVakit() {
-    const now = new Date();
-    const nowMin = now.getHours() * 60 + now.getMinutes();
-    const mins = MAIN_5.map(n => {
-        const t = prayerTimes[n];
-        if (!t || t === '--:--') return -1;
-        const [h, m] = t.split(':').map(Number);
-        return h * 60 + m;
-    });
-    let current = -1;
-    for (let i = mins.length - 1; i >= 0; i--) {
-        if (mins[i] >= 0 && nowMin >= mins[i]) { current = i; break; }
-    }
-    MAIN_5.forEach((name, i) => {
-        const el = document.getElementById('vi-' + name);
-        if (el) el.classList.toggle('current-vakit', i === current);
-    });
 }
 
 /* ===== INPUTS ===== */
 function renderInputs() {
     const key = currentDate.toISOString().split('T')[0];
     const d   = db[key] || {};
+    
     document.getElementById('prayerGridContainer').innerHTML = PRAYERS.map(p => {
         const timeLabel = PRAYER_API_MAP[p] && prayerTimes[p]
-            ? `<span class="prayer-time-label">${prayerTimes[p]}</span>`
+            ? `<span class="prayer-time-label"><i class="far fa-clock"></i> ${prayerTimes[p]}</span>`
             : '';
         return `
         <div class="prayer-card">
             <span class="prayer-name-block">
                 <b>${p}</b>${timeLabel}
             </span>
-            <div style="display:flex;align-items:center;gap:10px;">
-                <button class="count-btn btn-minus" onclick="changeCount('${p}',-1)">−</button>
+            <div class="counter-group">
+                <button class="count-btn btn-minus" onclick="changeCount('${p}',-1)"><i class="fas fa-minus"></i></button>
                 <span class="count-num">${d[p]||0}</span>
-                <button class="count-btn btn-plus"  onclick="changeCount('${p}',1)">+</button>
+                <button class="count-btn btn-plus"  onclick="changeCount('${p}',1)"><i class="fas fa-plus"></i></button>
             </div>
         </div>`;
     }).join('');
-    document.getElementById('selectedDateDisplay').innerText =
-        currentDate.toLocaleDateString('tr-TR',{day:'numeric',month:'long'});
+    
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('selectedDateDisplay').innerText = 
+        currentDate.toLocaleDateString('tr-TR', {day:'numeric', month:'long'});
 }
 
 function changeCount(p, delta) {
@@ -762,9 +920,9 @@ function showModal(emoji, title, msg, confettiOn) {
     document.getElementById('achievementModal').classList.add('show');
     if (confettiOn) {
         setTimeout(() => {
-            confetti({particleCount:180,spread:80,origin:{y:0.5}});
-            setTimeout(()=>confetti({particleCount:80,angle:60,spread:55,origin:{x:0}}),300);
-            setTimeout(()=>confetti({particleCount:80,angle:120,spread:55,origin:{x:1}}),500);
+            confetti({particleCount:180,spread:80,origin:{y:0.5}, zIndex: 3000});
+            setTimeout(()=>confetti({particleCount:80,angle:60,spread:55,origin:{x:0}, zIndex: 3000}),300);
+            setTimeout(()=>confetti({particleCount:80,angle:120,spread:55,origin:{x:1}, zIndex: 3000}),500);
         },200);
     }
 }
@@ -794,7 +952,7 @@ function handleCelebrations(doneDays) {
     }
 }
 
-/* ===== UI UPDATE ===== */
+/* ===== UI UPDATE & STREAK LOGIC ===== */
 function updateUI() {
     const tD = parseInt(settings.main)||0, prD = parseInt(settings.preCompleted)||0;
     const tV = parseInt(settings.vitir)||0, prV = parseInt(settings.preCompletedVitir)||0;
@@ -802,11 +960,47 @@ function updateUI() {
     let tot = {}; PRAYERS.forEach(p=>tot[p]=0);
     Object.values(db).forEach(day=>PRAYERS.forEach(p=>tot[p]+=(day[p]||0)));
 
+    // Mevcut Zincir (Current Streak)
     let streak=0, td=new Date(); td.setHours(0,0,0,0);
     const done=d=>{const k=d.toISOString().split('T')[0];return db[k]&&MAIN_5.every(v=>(db[k][v]||0)>0);};
     let tmp=new Date(td); if(!done(tmp)) tmp.setDate(tmp.getDate()-1);
     while(done(tmp)){streak++;tmp.setDate(tmp.getDate()-1);}
     document.getElementById('streakCount').innerText=streak;
+
+    // En Yüksek Zincir Rekoru (Highest Streak) - Dinamik Hesaplama
+    let highestStreak = 0;
+    let currentRun = 0;
+    const allDates = Object.keys(db).sort();
+    
+    if (allDates.length > 0) {
+        let prevDateStr = null;
+        for (let i = 0; i < allDates.length; i++) {
+            const dateStr = allDates[i];
+            if (db[dateStr] && MAIN_5.every(v => (db[dateStr][v] || 0) > 0)) {
+                if (prevDateStr === null) {
+                    currentRun = 1;
+                } else {
+                    const prevD = new Date(prevDateStr); prevD.setHours(0,0,0,0);
+                    const currD = new Date(dateStr); currD.setHours(0,0,0,0);
+                    const diffDays = Math.round((currD - prevD) / (1000 * 60 * 60 * 24));
+                    if (diffDays === 1) {
+                        currentRun++;
+                    } else if (diffDays > 1) {
+                        currentRun = 1;
+                    }
+                }
+                if (currentRun > highestStreak) highestStreak = currentRun;
+                prevDateStr = dateStr;
+            } else {
+                currentRun = 0;
+                prevDateStr = null;
+            }
+        }
+    }
+    if (streak > highestStreak) highestStreak = streak; // Güvenlik kontrolü
+    if (document.getElementById('highestStreakCount')) {
+        document.getElementById('highestStreakCount').innerText = highestStreak;
+    }
 
     const doneDays   = Math.min(...MAIN_5.map(p=>tot[p]))+prD;
     const totalVakit = MAIN_5.reduce((a,v)=>a+tot[v],0)+(prD*5)+tot['Vitir']+prV;
@@ -824,40 +1018,99 @@ function updateUI() {
 
     renderDetails(tot,tD,tV,prD,prV);
     renderKilinen(tot,prD,prV);
-    renderPrediction(totalVakit,tD,tV);
+    renderPrediction(totalVakit,tD,tV,doneDays);
 }
 
-/* Toplamlar: Kalan Borçlar — Nafile dahil */
+/* Toplamlar: Kalan Borçlar */
 function renderDetails(tot,tD,tV,prD,prV) {
     const list = MAIN_5.concat(['Vitir', 'Nafile']);
     document.getElementById('remainingGrid').innerHTML = list.map(p => {
         let r;
         if (p === 'Nafile') {
-            r = 0; // Nafile için borç tanımı yok
+            r = 0;
         } else {
             const t = p==='Vitir' ? tV : tD;
             const done = tot[p] + (p==='Vitir' ? prV : prD);
             r = Math.max(0, t - done);
         }
-        return `<div class="remain-item ${r===0?'done':''}"><span>${p}</span><b>${r}</b></div>`;
+        const icon = r===0 ? '<i class="fas fa-check-circle" style="color:var(--accent);"></i>' : '<i class="fas fa-hourglass-half" style="color:var(--danger);opacity:0.7;"></i>';
+        return `<div class="remain-item ${r===0?'done':''}"><span>${icon} ${p}</span><b>${r}</b></div>`;
     }).join('');
 }
 
-/* Toplamlar: Kılınan Vakitler — Nafile dahil */
+/* Toplamlar: Kılınan Vakitler */
 function renderKilinen(tot,prD,prV) {
     const list = MAIN_5.concat(['Vitir', 'Nafile']);
     document.getElementById('kilinenGrid').innerHTML = list.map(p => {
         const ex = p==='Vitir' ? prV : (p==='Nafile' ? 0 : prD);
-        return `<div class="kilinen-item"><span>${p}</span><b>${(tot[p]||0)+ex}</b></div>`;
+        return `<div class="kilinen-item"><span><i class="fas fa-check" style="color:var(--bar2);opacity:0.8;"></i> ${p}</span><b>${(tot[p]||0)+ex}</b></div>`;
     }).join('');
 }
 
-function renderPrediction(tv,tD,tV) {
-    const daily=parseInt(document.getElementById('dailyGoalInput').value)||1;
-    const rem=Math.max(0,(tD*5+tV)-tv), est=Math.ceil(rem/daily);
-    const fd=new Date(); fd.setDate(fd.getDate()+est);
+function renderPrediction(tv,tD,tV,doneDays) {
+    const daily = parseInt(document.getElementById('dailyGoalInput').value) || 1;
+    const rem = Math.max(0, (tD*5+tV)-tv);
+    const est = Math.ceil(rem / daily);
+    const fd = new Date(); fd.setDate(fd.getDate() + est);
+    
+    // Yıllık İlerleme Kartı
+    const targetYil = Math.floor((doneDays || 0) / 365) + 1;
+    const yilIcindekiGun = (doneDays || 0) % 365;
+    const kalanGun = 365 - yilIcindekiGun;
+    const yilYuzde = (yilIcindekiGun / 365) * 100;
+    
+    let yearlyHtml = `
+        <div class="yearly-progress-card">
+            <div class="yearly-progress-header">
+                <div class="yearly-progress-title"><i class="fas fa-bullseye" style="color:var(--accent);"></i> ${targetYil}. Yıl Hedefi</div>
+                <div class="yearly-progress-stats">${yilIcindekiGun} / 365</div>
+            </div>
+            <div class="yearly-progress-bar-bg">
+                <div class="yearly-progress-bar-fill" style="width: ${yilYuzde}%"></div>
+            </div>
+            <div class="yearly-progress-text">
+                Tam bir yıllık kaza döngüsünü kapatmak için <b>${kalanGun}</b> günlük namazınız kaldı.
+            </div>
+        </div>
+    `;
+    document.getElementById('yearlyProgressCard').innerHTML = yearlyHtml;
+
+    // Ana Tahmin
     document.getElementById('predictionResult').innerHTML=
-        `Kalan: <b>${rem}</b> vakit<br>Tahmini Bitiş: <b>${fd.toLocaleDateString('tr-TR')}</b>`;
+        `Kalan: <b>${rem}</b> vakit
+         <span>Bitiş Tarihi: ${fd.toLocaleDateString('tr-TR', {day:'numeric', month:'long', year:'numeric'})}</span>`;
+
+    // Hızlandırma Planı (Acceleration)
+    if (rem > 0) {
+        let accelHtml = `
+        <div class="acceleration-card">
+            <div class="acceleration-title"><i class="fas fa-rocket" style="color:var(--bar3);"></i> Hızlandırma Planı</div>`;
+        const increments = [1, 2, 5];
+        increments.forEach(inc => {
+            const newDaily = daily + inc;
+            const newEst = Math.ceil(rem / newDaily);
+            const newFd = new Date(); newFd.setDate(newFd.getDate() + newEst);
+            const diffDays = est - newEst;
+            
+            let diffText = "";
+            if (diffDays > 365) diffText = `${Math.floor(diffDays/365)} yıl ${diffDays%365} gün erken biter`;
+            else if (diffDays > 30) diffText = `${Math.floor(diffDays/30)} ay ${diffDays%30} gün erken biter`;
+            else diffText = `${diffDays} gün erken biter`;
+            
+            accelHtml += `
+            <div class="accel-item">
+                <div class="accel-badge">Günlük +${inc} Vakit</div>
+                <div class="accel-info">
+                    <div class="accel-date">${newFd.toLocaleDateString('tr-TR')}</div>
+                    <div class="accel-diff"><i class="fas fa-arrow-down"></i> ${diffText}</div>
+                </div>
+            </div>`;
+        });
+        accelHtml += `</div>`;
+        document.getElementById('accelerationCard').innerHTML = accelHtml;
+    } else {
+        document.getElementById('accelerationCard').innerHTML = '';
+    }
 }
 
 /* ===== AYARLAR ===== */
@@ -888,7 +1141,9 @@ function switchTab(t) {
         el.classList.toggle('active', el.dataset.tab === t)
     );
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-    document.getElementById(t).classList.add('active');
+    setTimeout(() => {
+        document.getElementById(t).classList.add('active');
+    }, 10);
 }
 
 /* ===== EVENT BINDINGS ===== */
@@ -898,7 +1153,7 @@ function bindEvents() {
         btn.onclick = () => { const t = btn.dataset.tab; if (!t) return; switchTab(t); };
     });
 
-    // Tema butonları (Ayarlar sekmesi)
+    // Tema butonları
     document.querySelectorAll('.theme-btn').forEach(btn => {
         btn.onclick = () => {
             themeIdx = parseInt(btn.dataset.themeIdx);
@@ -927,7 +1182,8 @@ function bindEvents() {
         Object.values(db).forEach(day=>PRAYERS.forEach(p=>tot[p]+=(day[p]||0)));
         const prD=parseInt(settings.preCompleted)||0, prV=parseInt(settings.preCompletedVitir)||0;
         const tv=MAIN_5.reduce((a,v)=>a+tot[v],0)+(prD*5)+tot['Vitir']+prV;
-        renderPrediction(tv,parseInt(settings.main)||0,parseInt(settings.vitir)||0);
+        const doneDays = Math.min(...MAIN_5.map(p=>tot[p]))+prD;
+        renderPrediction(tv,parseInt(settings.main)||0,parseInt(settings.vitir)||0, doneDays);
     });
 
     document.querySelectorAll('.fs-btn').forEach(btn=>{btn.onclick=()=>applyFontSize(btn.dataset.size);});
