@@ -58,7 +58,7 @@
             --danger-soft:     #fef2f2;
             --nav-bg:          rgba(255, 255, 255, 0.85);
             --nav-active:      #10b981;
-            --glass-blur:      blur(12px);
+            --glass-blur:      blur(8px);
 
             --fs-xs:    0.75rem;
             --fs-sm:    0.85rem;
@@ -122,13 +122,19 @@
            GENEL YAPI
         =================================================== */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
             background: linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 100%);
-            background-attachment: fixed;
+            z-index: -1;
+            transition: background 0.4s ease;
+        }
+        body {
             font-family: 'Nunito', sans-serif;
             font-size: var(--fs-base);
             color: var(--text-main);
-            transition: background 0.4s ease, color 0.4s ease;
+            transition: color 0.4s ease;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -638,11 +644,11 @@
         <!-- TAB 6: AYARLAR -->
         <div id="tab6" class="tab-content">
 
-            <span class="settings-section-label">Sistem</span>
+        	<span class="settings-section-label">Sistem</span>
 <button onclick="checkUpdate()" class="action-btn" style="background:var(--bar2); width:100%; margin-bottom:12px;">
     <i class="fas fa-sync-alt"></i> Uygulamayı Güncelle
 </button>
-            
+
             <!-- Borç Bilgileri -->
             <span class="settings-section-label">Borç Bilgileri</span>
             <div class="prayer-card"><span><b>5 Vakit Borcu (Gün)</b></span><input type="number" id="mainDebtDays" class="setting-input" placeholder="0"></div>
@@ -1260,7 +1266,6 @@ function bindEvents() {
 
 init();
 
-    
 /* ===== GÜNCELLEME DENETLEME (Cache Busting) ===== */
 function checkUpdate() {
     if (confirm("Yeni güncellemeler kontrol edilecek ve uygulama yeniden başlatılacak. Devam edilsin mi?")) {
@@ -1272,7 +1277,18 @@ function checkUpdate() {
                 }
             });
         }
-        
+        // 2. Cache Storage (Önbellek) temizle
+        if ('caches' in window) {
+            caches.keys().then(function(names) {
+                for (let name of names) caches.delete(name);
+            });
+        }
+        // 3. Sayfayı sunucudan (server) taze veriyle yükle
+        // localStorage verilerine (namaz sayılarına) dokunmaz.
+        window.location.reload(true);
+    }
+}
+
 /* ============================================================
    PWA: Service Worker Kaydı
 ============================================================ */
