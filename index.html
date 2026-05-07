@@ -638,6 +638,11 @@
         <!-- TAB 6: AYARLAR -->
         <div id="tab6" class="tab-content">
 
+            <span class="settings-section-label">Sistem</span>
+<button onclick="checkUpdate()" class="action-btn" style="background:var(--bar2); width:100%; margin-bottom:12px;">
+    <i class="fas fa-sync-alt"></i> Uygulamayı Güncelle
+</button>
+            
             <!-- Borç Bilgileri -->
             <span class="settings-section-label">Borç Bilgileri</span>
             <div class="prayer-card"><span><b>5 Vakit Borcu (Gün)</b></span><input type="number" id="mainDebtDays" class="setting-input" placeholder="0"></div>
@@ -1255,6 +1260,19 @@ function bindEvents() {
 
 init();
 
+    
+/* ===== GÜNCELLEME DENETLEME (Cache Busting) ===== */
+function checkUpdate() {
+    if (confirm("Yeni güncellemeler kontrol edilecek ve uygulama yeniden başlatılacak. Devam edilsin mi?")) {
+        // 1. Service Worker'ı bul ve kaldır
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for (let registration of registrations) {
+                    registration.unregister();
+                }
+            });
+        }
+        
 /* ============================================================
    PWA: Service Worker Kaydı
 ============================================================ */
