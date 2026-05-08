@@ -58,7 +58,7 @@
             --danger-soft:     #fef2f2;
             --nav-bg:          rgba(255, 255, 255, 0.85);
             --nav-active:      #10b981;
-            --glass-blur:      blur(12px);
+            --glass-blur:      blur(8px);
 
             --fs-xs:    0.75rem;
             --fs-sm:    0.85rem;
@@ -97,12 +97,12 @@
         body.tema-gri {
             --bg-grad-1:       #0f172a;
             --bg-grad-2:       #1e293b;
-            --container-bg:    rgba(30, 41, 59, 0.7);
+            --container-bg:    rgba(30, 41, 59, 1);
             --glass-border:    var(--accent-glow);
             --header-text:     #f8fafc;
             --text-main:       #f1f5f9;
             --text-gray:       #94a3b8;
-            --card-bg:         rgba(30, 41, 59, 0.85);
+            --card-bg:         rgba(30, 41, 59, 1);
             --card-shadow:     0 8px 32px 0 rgba(0, 0, 0, 0.3);
             --accent:          #38bdf8;
             --accent-soft:     rgba(56, 189, 248, 0.15);
@@ -122,13 +122,19 @@
            GENEL YAPI
         =================================================== */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
             background: linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 100%);
-            background-attachment: fixed;
+            z-index: -1;
+            transition: background 0.4s ease;
+        }
+        body {
             font-family: 'Nunito', sans-serif;
             font-size: var(--fs-base);
             color: var(--text-main);
-            transition: background 0.4s ease, color 0.4s ease;
+            transition: color 0.4s ease;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -262,8 +268,6 @@
             align-items: center;
             padding: 16px 20px;
             background: var(--card-bg);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
             border-radius: 20px;
             border: 1px solid var(--glass-border);
             margin-bottom: 12px;
@@ -464,8 +468,6 @@
             width: calc(100% - 40px);
             max-width: 440px;
             background: var(--nav-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
             border-radius: 24px;
             display: flex;
@@ -531,7 +533,7 @@
 
 <div class="app-container">
     <header>
-        <h1>Kaza Takibim</h1>
+        <h1>Kaza Namazı Takibi</h1>
     </header>
 
     <main>
@@ -678,7 +680,11 @@
                 <i class="fas fa-trash-alt"></i> Tüm Verileri Temizle
             </button>
             <input type="file" id="fileInput" style="display:none" accept=".json">
-        </div>
+            
+    <button onclick="checkUpdate()" class="action-btn" style="background:var(--bar2); width:100%; margin-top:15px; margin-bottom:5px;">
+    <i class="fas fa-sync-alt"></i> Uygulamayı Güncelle v1.4.5
+</button>
+        </div> 
     </main>
 </div>
 
@@ -1254,6 +1260,29 @@ function bindEvents() {
 }
 
 init();
+
+/* ===== GÜNCELLEME DENETLEME (Cache Busting) ===== */
+function checkUpdate() {
+    if (confirm("Yeni güncellemeler kontrol edilecek ve uygulama yeniden başlatılacak. Devam edilsin mi?")) {
+        // 1. Service Worker'ı bul ve kaldır
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for (let registration of registrations) {
+                    registration.unregister();
+                }
+            });
+        }
+        // 2. Cache Storage (Önbellek) temizle
+        if ('caches' in window) {
+            caches.keys().then(function(names) {
+                for (let name of names) caches.delete(name);
+            });
+        }
+        // 3. Sayfayı sunucudan (server) taze veriyle yükle
+        // localStorage verilerine (namaz sayılarına) dokunmaz.
+        window.location.reload(true);
+    }
+}
 
 /* ============================================================
    PWA: Service Worker Kaydı
