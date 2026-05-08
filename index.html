@@ -802,6 +802,7 @@ let fontSize        = localStorage.getItem('font_size') || 'font-orta';
 let currentDate     = new Date(); currentDate.setHours(0,0,0,0);
 let importFileData  = null;
 let prayerTimes     = {};
+let lastFetchedDate = localStorage.getItem('lastFetchedDate') || ""; 
 
 function init() {
     applyTheme();
@@ -842,43 +843,53 @@ function applyFontSize(size) {
 
 /* ===== İSTANBUL NAMAZ VAKİTLERİ (Diyanet/Aladhan API) ===== */
 async function fetchPrayerTimes() {
+async function fetchPrayerTimes() {
     const today = new Date().toISOString().split('T')[0];
-    try {
-        const cached = JSON.parse(localStorage.getItem('istanbul_vakitler') || '{}');
-        if (cached.date === today && Object.keys(cached.times || {}).length === 5) {
-            prayerTimes = cached.times;
-            renderInputs();
-            return;
-        }
-    } catch(e) {}
+    
+    // 1. Kontrol: Eğer bugün zaten veri çekildiyse dur.
+    if (lastFetchedDate === today && Object.keys(prayerTimes).length > 0) {
+        return;
+    }
 
     try {
-        const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=Istanbul&country=Turkey&method=13`);
+        // 2. İşlem: Sonuna "t=..." ekleyerek eski veriyi (cache) engelliyoruz
+        const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=Istanbul&country=Turkey&method=13&t=${new Date().getTime()}`);
         if (!res.ok) throw new Error('API yanıt vermedi');
+        
         const data = await res.json();
         if (data.code === 200 && data.data && data.data.timings) {
             const timings = data.data.timings;
             const times = {};
+            
             Object.entries(PRAYER_API_MAP).forEach(([tr, en]) => {
                 times[tr] = timings[en] ? timings[en].substring(0, 5) : '--:--';
             });
+
+            // 3. Kayıt: Yeni verileri kaydet
             prayerTimes = times;
+            lastFetchedDate = today;
+            localStorage.setItem('lastFetchedDate', today);
             localStorage.setItem('istanbul_vakitler', JSON.stringify({ date: today, times }));
+            
             renderInputs();
         }
     } catch(e) {
-        try {
-            const cached = JSON.parse(localStorage.getItem('istanbul_vakitler') || '{}');
-            if (cached.times && Object.keys(cached.times).length > 0) {
-                prayerTimes = cached.times;
-                renderInputs();
-            }
-        } catch(e2) {}
+        // İnternet yoksa hafızadaki eski veriyi getir
+        const cached = JSON.parse(localStorage.getItem('istanbul_vakitler') || '{}');
+        if (cached.times) {
+            prayerTimes = cached.times;
+            renderInputs();
+        }
     }
 }
 
 /* ===== INPUTS ===== */
 function renderInputs() {
+    const simdi = new Date();
+    const bugunTarihi = simdi.toISOString().split('T')[0];
+    if (lastFetchedDate !== bugunTarihi) {
+        fetchPrayerTimes();
+    }
     const key = currentDate.toISOString().split('T')[0];
     const d   = db[key] || {};
     
