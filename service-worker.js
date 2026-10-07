@@ -3,7 +3,7 @@
    Strateji: Cache-First (çevrimdışı öncelikli)
 ============================================================ */
 
-const CACHE_NAME    = 'kaza-takip-v1';
+const CACHE_NAME    = 'kaza-takip-v6';
 const STATIC_ASSETS = [
     './',
     './index.html',
